@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>Finanzas personales</title>
+	<link rel="stylesheet" type="text/css" media="all" href="estilo.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="funciones.js" defer></script>
+
+ 	</head>
+
+    <body>
+        <h1> Finanzas personales</h1>
+
+        <div class="contenedor sombra">
+            <div class="formulario">
+                <form id="formLogin" class="formulario" method="post" onsubmit="return false">
+						<div id="capalogin">
+								<label for="idlogin">Email</label>
+								<input type="email" value="" name="idlogin" id="idlogin" class="input" onkeypress="return permite(event, 'num_car')" />
+                                
+								<label for="password">Contraseña
+                                </label>
+								<div class="passwordClass">
+									<input type="password" value="" name="clave" id="clave" class="input" />
+									<img id="claveShow" src="img/eyeOpen.png" onclick="tooglePassType('clave')">
+								</div>
+
+								<div class="butLogin">
+                                    <input id="btnConectar" type="button" value="Conectar">
+                                    <input id="btnRegistrar" type="button" value="Registrar nuevo usuario">
+                                </div>	
+						</div>
+					    <div id="log_error" class="error">
+                            <b>Error, nombre de usuario y/o clave incorrectos.</b>
+                        </div>
+				</form>
+                <form id="formRegistro" class="formulario" method="post" onsubmit="return false">
+                    <div id="camposFormRegistro">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+
+                        <label for="apellidos">Apellidos</label>
+                        <input type="text" id="apellidos" name="apellidos" required>
+
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" pattern="[0-9]{9}" placeholder="Ej: 600123456" required>
+
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" name="password" value="" required>
+
+                        <label for="confirmPassword">Repetir contraseña</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" value="" required>
+
+                        <div id="errorMensaje" class="error"></div>
+                        
+                        <div class="butLogin">
+                         <input id="btnRegistrarUsuario" type="button" value="Registrar"/>
+                         <input id="btnVolverAtras" type="button" value="Volver"/>
+                        </div>  
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+      </body>
