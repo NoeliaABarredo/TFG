@@ -9,14 +9,9 @@ class DBO{
 
     public function conectar($dbtouse){
         // Cuando contenedoricemos usaremos variables de entorno que se rellenan desde el manifiesto
-        // Es mucho más seguro
-        //$hostBaseDatos = getenv('DB_HOST');
-        //$usuarioBBDD = getenv('MYSQL_ROOT_USER');
-		//$clave = getenv('MYSQL_ROOT_PASSWORD');
-        // Para el desarrollo local hardcodeamos los datos por sencillez
-        $hostBaseDatos="usuarios-db";
-		$usuario="root";
-		$clave="rootpassword";
+        $hostBaseDatos=$this->hostBaseDatos;
+		$usuario=getenv('DB_USER');
+		$clave=getenv('DB_PASSWORD');
         $charset = "utf8mb4";
 
         // Cadena con los datos de conexión para generar el PDO para manejar la conexión con la base de datos

@@ -100,6 +100,12 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            kubectl create secret generic db-secrets \
+              --from-literal=DB_PASSWORD='${{ secrets.DB_PASSWORDS }}' \
+              --from-literal=JWT_TOKEN='${{ secrets.JWT_TOKEN }}' \
+              -n appfinanzas \
+              --dry-run=client -o yaml | kubectl apply -f -
+            
             kubectl apply -f ~/k8s/
 
             kubectl rollout status deployment/usuarios --timeout=120s || true

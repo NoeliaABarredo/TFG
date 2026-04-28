@@ -72,8 +72,18 @@ spec:
         env:
           - name: DB_HOST
             value: usuarios-db
+          - name: DB_USER
+            value: root
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: DB_PASSWORD
           - name: JWT_TOKEN
-            value: "DsvAQzXEfHvYkl9S92pzgJcCgPmr697081kJslNh85o="
+            valueFrom:
+              secretKeyRef:
+                name: jwt-token
+                key: JWT_TOKEN
         resources:
           requests:
             cpu: "100m"
@@ -133,7 +143,10 @@ spec:
           - name: MYSQL_ROOT_USER
             value: root
           - name: MYSQL_ROOT_PASSWORD
-            value: rootpassword
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: DB_PASSWORD
           - name: MYSQL_DATABASE
             value: usuarios_db
         ports:
@@ -202,6 +215,13 @@ spec:
         env:
           - name: DB_HOST
             value: cuentas-db
+          - name: DB_USER
+            value: root
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: DB_PASSWORD
         resources:
           requests:
             cpu: "100m"
@@ -261,7 +281,10 @@ spec:
           - name: MYSQL_ROOT_USER
             value: root
           - name: MYSQL_ROOT_PASSWORD
-            value: rootpassword
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: DB_PASSWORD
           - name: MYSQL_DATABASE
             value: cuentas_db
         ports:
@@ -329,6 +352,13 @@ spec:
         env:
           - name: DB_HOST
             value: operaciones-db
+          - name: DB_USER
+            value: root
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: DB_PASSWORD
         resources:
           requests:
             cpu: "100m"
@@ -388,7 +418,10 @@ spec:
           - name: MYSQL_ROOT_USER
             value: root
           - name: MYSQL_ROOT_PASSWORD
-            value: rootpassword
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: DB_PASSWORD
           - name: MYSQL_DATABASE
             value: operaciones_db
         ports:

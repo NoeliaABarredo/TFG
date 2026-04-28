@@ -32,8 +32,7 @@ class ModeloUsuario{
     // Métodos
     // Constructor
     public function __construct(){
-        // De momento hardcodeado. En despliegue sobre k3s se gestionará con los SECRETS y variables de entorno "getenv("JWT_KEY")"
-        //$this->claveJwt = "DsvAQzXEfHvYkl9S92pzgJcCgPmr697081kJslNh85o=";
+
         $this->claveJwt = getenv('JWT_TOKEN');
         // Instanciamos el controlador de la base de datos
         $db = new DBO();
