@@ -117,7 +117,7 @@ jobs:
               -n appfinanzas \
               --dry-run=client -o yaml | kubectl apply -f -
               
-            kubectl apply -f ~/k8s/k8s-deploy/appfinanzas.yaml
+            kubectl apply -f ~/k8s/k8s-deploy/appfinanzas.yaml -n appfinanzas
 
             kubectl rollout status deployment/usuarios --timeout=120s || true
             kubectl rollout status deployment/cuentas --timeout=120s || true
