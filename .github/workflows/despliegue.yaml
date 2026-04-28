@@ -112,32 +112,14 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: SECRET_DB_PASS,SECRET_TOKEN
           script: |
             set -e
             export KUBECONFIG=/home/k3sadmin/.kube/config
 
-              echo "==== DEBUG START ===="
-
-              echo "USER:"
-              whoami
-
-              echo "HOME:"
-              echo $HOME
-
-              echo "KUBECONFIG:"
-              echo $KUBECONFIG
-
-              echo "Contenido .kube:"
-              ls -l /home/k3sadmin/.kube || true
-
-              echo "Intentando kubectl:"
-              kubectl get nodes || echo "kubectl FAIL"
-
-              echo "==== DEBUG END ===="
-
             kubectl create secret generic app-secrets \
-              --from-literal=DB_PASSWORD=$SECRET_DB_PASS \
-              --from-literal=JWT_TOKEN=$SECRET_TOKEN \
+              --from-literal=DB_PASSWORD="$SECRET_DB_PASS" \
+              --from-literal=JWT_TOKEN="$SECRET_TOKEN" \
               -n appfinanzas \
               --dry-run=client -o yaml | kubectl apply -f -
               
