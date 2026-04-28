@@ -144,6 +144,10 @@ spec:
       containers:
       - name: mariadb
         image: mariadb:10.6
+        args:
+          - "--innodb-buffer-pool-size=256M"
+          - "--max-connections=50"
+          - "--key-buffer-size=16M"
         env:
           - name: MYSQL_ROOT_USER
             value: root
@@ -162,10 +166,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "128Mi"
+            memory: "300Mi"
           limits:
             cpu: "500m"
-            memory: "256Mi"
+            memory: "600Mi"
         livenessProbe:
           exec:
             command: ["mariadb-admin", "ping", "-h", "localhost"]
@@ -287,6 +291,10 @@ spec:
       containers:
       - name: mariadb
         image: mariadb:10.6
+        args:
+          - "--innodb-buffer-pool-size=256M"
+          - "--max-connections=50"
+          - "--key-buffer-size=16M"
         env:
           - name: MYSQL_ROOT_USER
             value: root
@@ -305,10 +313,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "128Mi"
+            memory: "300Mi"
           limits:
             cpu: "500m"
-            memory: "256Mi"
+            memory: "600Mi"
         livenessProbe:
           exec:
             command: ["mariadb-admin", "ping", "-h", "localhost"]
@@ -429,6 +437,10 @@ spec:
       containers:
       - name: mariadb
         image: mariadb:10.6
+        args:
+          - "--innodb-buffer-pool-size=256M"
+          - "--max-connections=50"
+          - "--key-buffer-size=16M"
         env:
           - name: MYSQL_ROOT_USER
             value: root
@@ -447,10 +459,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "128Mi"
+            memory: "300Mi"
           limits:
             cpu: "500m"
-            memory: "256Mi" 
+            memory: "600Mi" 
         livenessProbe:
           exec:
             command: ["mariadb-admin", "ping", "-h", "localhost"]
