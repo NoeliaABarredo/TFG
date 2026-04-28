@@ -72,6 +72,8 @@ jobs:
     env:
       IMAGE_TAG: ${{ github.sha }}
       DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+      SECRET_DB_PASS: ${{ secrets.DB_PASSWORDS }}
+      SECRET_TOKEN: ${{ secrets.JWT_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -118,24 +120,24 @@ jobs:
 
               echo "USER:"
               whoami
-            
+
               echo "HOME:"
               echo $HOME
-            
+
               echo "KUBECONFIG:"
               echo $KUBECONFIG
-            
+
               echo "Contenido .kube:"
               ls -l /home/k3sadmin/.kube || true
-            
+
               echo "Intentando kubectl:"
               kubectl get nodes || echo "kubectl FAIL"
-            
+
               echo "==== DEBUG END ===="
 
             kubectl create secret generic app-secrets \
-              --from-literal=DB_PASSWORD='${{ secrets.DB_PASSWORDS }}' \
-              --from-literal=JWT_TOKEN='${{ secrets.JWT_TOKEN }}' \
+              --from-literal=DB_PASSWORD=$SECRET_DB_PASS \
+              --from-literal=JWT_TOKEN=$SECRET_TOKEN \
               -n appfinanzas \
               --dry-run=client -o yaml | kubectl apply -f -
               
