@@ -113,7 +113,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            set -env
+            set -e
             export KUBECONFIG=/home/k3sadmin/.kube/config
 
               echo "==== DEBUG START ===="
