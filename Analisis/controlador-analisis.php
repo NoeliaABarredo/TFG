@@ -47,7 +47,6 @@ class ControladorAnalisis{
         curl_setopt($solicitud, CURLOPT_VERBOSE, true);
         // Ejecutamos las olicitud
         $respuesta = curl_exec($solicitud);
-        //echo "Respuesta de operaciones <br>";
         //var_dump($respuesta);
         // Para la gestion de error en la comunicación
         if (curl_errno($solicitud)){
