@@ -90,7 +90,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "k8s-deploy/appfinanzas.yaml"
-          target: "~/k8s/"
+          target: "~/k8s/appfinanzas.yaml"
 
       - name: Deploy in K3s via SSH
         uses: appleboy/ssh-action@master
@@ -100,13 +100,16 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            rm -rf ~/k8s
+            mkdir -p ~/k8s
+
             kubectl create secret generic db-secrets \
               --from-literal=DB_PASSWORD='${{ secrets.DB_PASSWORDS }}' \
               --from-literal=JWT_TOKEN='${{ secrets.JWT_TOKEN }}' \
               -n appfinanzas \
               --dry-run=client -o yaml | kubectl apply -f -
               
-            kubectl apply -f ~/k8s/k8s-deploy/appfinanzas.yaml
+            kubectl apply -f ~/k8s/appfinanzas.yaml
 
             kubectl rollout status deployment/usuarios --timeout=120s || true
             kubectl rollout status deployment/cuentas --timeout=120s || true
