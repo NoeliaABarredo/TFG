@@ -82,6 +82,17 @@ jobs:
           cp -r k3smanifiestos k8s-deploy
           find k8s-deploy -type f -name "*.yaml" -exec sed -i "s/:latest/:$IMAGE_TAG/g" {} \;
 
+      - name: Clean remote k8s folder
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            rm -rf ~/k8s
+            mkdir -p ~/k8s
+            
       - name: Copy manifests to server
         uses: appleboy/scp-action@master
         with:
@@ -100,9 +111,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            rm -rf ~/k8s
-            mkdir -p ~/k8s
-
             kubectl create secret generic db-secrets \
               --from-literal=DB_PASSWORD='${{ secrets.DB_PASSWORDS }}' \
               --from-literal=JWT_TOKEN='${{ secrets.JWT_TOKEN }}' \
