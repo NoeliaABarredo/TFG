@@ -92,7 +92,7 @@ jobs:
           script: |
             rm -rf ~/k8s
             mkdir -p ~/k8s
-            
+
       - name: Copy manifests to server
         uses: appleboy/scp-action@master
         with:
@@ -101,7 +101,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "k8s-deploy/appfinanzas.yaml"
-          target: "~/k8s/appfinanzas.yaml"
+          target: "~/k8s/"
 
       - name: Deploy in K3s via SSH
         uses: appleboy/ssh-action@master
