@@ -114,7 +114,24 @@ jobs:
             set -env
             export KUBECONFIG=/home/k3sadmin/.kube/config
 
-            kubectl get pods -n appfinanzas
+              echo "==== DEBUG START ===="
+
+              echo "USER:"
+              whoami
+            
+              echo "HOME:"
+              echo $HOME
+            
+              echo "KUBECONFIG:"
+              echo $KUBECONFIG
+            
+              echo "Contenido .kube:"
+              ls -l /home/k3sadmin/.kube || true
+            
+              echo "Intentando kubectl:"
+              kubectl get nodes || echo "kubectl FAIL"
+            
+              echo "==== DEBUG END ===="
 
             kubectl create secret generic app-secrets \
               --from-literal=DB_PASSWORD='${{ secrets.DB_PASSWORDS }}' \
