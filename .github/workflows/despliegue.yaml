@@ -114,6 +114,8 @@ jobs:
             set -env
             export KUBECONFIG=/home/k3sadmin/.kube/config
 
+            kubectl get pods -n appfinanzas
+
             kubectl create secret generic app-secrets \
               --from-literal=DB_PASSWORD='${{ secrets.DB_PASSWORDS }}' \
               --from-literal=JWT_TOKEN='${{ secrets.JWT_TOKEN }}' \
