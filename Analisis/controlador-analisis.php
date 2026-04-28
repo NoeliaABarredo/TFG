@@ -9,7 +9,8 @@ class ControladorAnalisis{
     private $datosSolicitud;
     private $jwt;
     private $estado;
-    private $estadoAnalisis;
+    private $estadoComunicacion;
+
 
     // Métodos
     // Constructor
@@ -61,7 +62,7 @@ class ControladorAnalisis{
         curl_close($solicitud);
         // Si el json_decode da null almacenamos el resultado en crudo
         if ($resultado === null)
-            $this->estadoOperacion = $respuesta;
+            $this->estadoComunicacion = $respuesta;
         //var_dump($resultado);
         // Devolvemos la respuesta
         return $resultado;
@@ -76,7 +77,7 @@ class ControladorAnalisis{
         // Hacemos la solicitud al microservicio usuarios.php
         $respuesta = $this->solicitudPOST($url, $datos);
         if (!isset($respuesta["mensaje"])){
-            var_dump($this->estadoOperacion);
+            var_dump($this->estadoComunicacion);
         }
 
         //$valido = ($respuesta["mensaje"] === "Sesion valida") ? true : false;

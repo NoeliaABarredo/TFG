@@ -89,8 +89,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "k8s-deploy/*"
-          target: "~/k8s"
+          source: "k8s-deploy/appfinanzas.yaml"
+          target: "~/k8s/"
 
       - name: Deploy in K3s via SSH
         uses: appleboy/ssh-action@master
@@ -105,8 +105,8 @@ jobs:
               --from-literal=JWT_TOKEN='${{ secrets.JWT_TOKEN }}' \
               -n appfinanzas \
               --dry-run=client -o yaml | kubectl apply -f -
-            
-            kubectl apply -f ~/k8s/
+              
+            kubectl apply -f ~/k8s/appfinanzas.yaml
 
             kubectl rollout status deployment/usuarios --timeout=120s || true
             kubectl rollout status deployment/cuentas --timeout=120s || true
