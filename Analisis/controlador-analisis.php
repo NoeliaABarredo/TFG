@@ -69,15 +69,12 @@ class ControladorAnalisis{
     // Tenemos que hacer un POST a usuarios.php para validar el token
     function validarToken(){
         // Preparamos los datos para la solicitud
-        $url = "http://ususarios/usuarios.php/existeSesion";
+        $url = "http://usuarios/usuarios.php/existeSesion";
         $datos = [
             "token" => $this->jwt,
         ];
         // Hacemos la solicitud al microservicio usuarios.php
         $respuesta = $this->solicitudPOST($url, $datos);
-        if (!isset($respuesta["mensaje"])){
-            var_dump($this->estadoComunicacion);
-        }
 
         //$valido = ($respuesta["mensaje"] === "Sesion valida") ? true : false;
         if ($respuesta["mensaje"] === "Sesion valida") {
@@ -129,6 +126,9 @@ class ControladorAnalisis{
     // # Getters and Setters
      public function getSesionValida(){
          return $this->sesionValida;
+     }
+     public function getEstadoComunicacion(){
+        return $this->estadoComunicacion;
      }
 }
 ?>
