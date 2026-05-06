@@ -19,14 +19,10 @@ class ControladorCuentas{
         $this->estado = null;
         // Instanciamos el modelo y lo guardamos en un atributo de la clase
         $this->modeloCuentas = new ModeloCuentas();
-        // Comprobamos que no hay error al crear la instancia ModeloCuentas
-        if ($this->modeloCuentas->getEstado() !== null)
-            $this->estado = $this->modeloCuentas->getEstado();
-        else {
-            // Al instanciar el controlador compruebo el token
-            $this->sesionValida = $this->validarToken();
-            $this->modeloCuentas->setSesionValida($this->sesionValida);
-        }
+   
+        // Al instanciar el controlador compruebo el token
+        $this->sesionValida = $this->validarToken();
+        $this->modeloCuentas->setSesionValida($this->sesionValida);
     }
     // Función para las intercomunicaciones con otros microservicios.
     function solicitudPOST($ruta, $datos){
