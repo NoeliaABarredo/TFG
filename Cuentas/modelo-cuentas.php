@@ -33,7 +33,7 @@ class ModeloCuentas{
                 "estado"  => $db->getError(),
                 "mensaje" => "Fallo al conectar con el servidor SQL de cuentas"
             ];
-            json_encode($mensajeError);
+            echo json_encode($mensajeError);
             $this->estado = $mensajeError;
         }
         // Si no hay error en conexión con el servidor, conectamos con la base de datos
@@ -44,7 +44,7 @@ class ModeloCuentas{
                 "estado"  => $db->getError(),
                 "mensaje" => "Fallo al conectar con la base de datos cuentas_db"
             ];
-            json_encode($mensajeError);
+            echo json_encode($mensajeError);
             $this->estado = $mensajeError;
         }
         // Inicializmos la lista vacia
