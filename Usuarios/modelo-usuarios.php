@@ -32,11 +32,31 @@ class ModeloUsuario{
     // Métodos
     // Constructor
     public function __construct(){
-
+        $this->estado = null;
+        // Se obtiene el valor del token inyectado en el deployment
         $this->claveJwt = getenv('JWT_TOKEN');
         // Instanciamos el controlador de la base de datos
         $db = new DBO();
+        // Si hay error en la conexión cerramos el script devolviendo el error a front
+        if ($db->getError() !== null){
+            $mensajeError = [
+                "estado"  => $db->getError(),
+                "mensaje" => "Fallo al conectar con el servidor SQL de usuarios"
+            ];
+            echo json_encode($mensajeError);
+            exit();
+        }
+        // Si no hay error en conexión con el servidor, conectamos con la base de datos
         $this->dbo = $db->conectar("usuarios_db");
+        // Estamos en el servidor pero no encontramos la base de datos
+        if (!$this->dbo){
+            $mensajeError = [
+                "estado"  => $db->getError(),
+                "mensaje" => "Fallo al conectar con la base de datos usuarios_db"
+            ];
+            echo json_encode($mensajeError);
+            exit();
+        }
         // Inicialmente la sesión no es valida hasta que se haga expresamente. ZeroTrust
         $this->sesionValida = false;
         // Al crear el modelo leemos los datos que vienen en la solicitud.

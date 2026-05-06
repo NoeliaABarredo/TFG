@@ -1003,7 +1003,13 @@ function operacionesTrasLogin(datos){
 	if (datos !== "" || datos !== null){
 		// Si hay error se muestra el mensaje. Si no, se redirecciona al menu que comprobará la sesión por su cuenta
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			document.querySelector("#log_error").style.display = "block";
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de usuarios. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				document.querySelector("#log_error").style.display = "block";
+			}
 		} else {
 			localStorage.setItem('jwt_token', datos.token);
 			// Se almacena el id de usuario
@@ -1033,8 +1039,14 @@ function operacionesTrasRegistro(datos){
 	if (datos !== "" || datos !== null){
 		// Si hay error muestro el mensaje. Si no hay redirecciono al inicio para que muestre el form de login
 		if (MENSAJES_ERROR.includes(datos.estado)){
-			let mensaje = "<p>" + datos.mensaje + "</p>";
-			sweetalertError("Registrar usuario",mensaje,"Entendido",null);
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de usuarios. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>" + datos.mensaje + "</p>";
+				sweetalertError("Registrar usuario",mensaje,"Entendido",null);
+			}
 		} else {
 			console.log("registro ok");
 			window.location = "index.html";
@@ -1047,8 +1059,14 @@ function accionesUsuarioLeido(datos){
 	if (datos !== "" || datos !== null){
 		// Si hay error muestro el mensaje. Si no hay redirecciono al inicio para que muestre el form de login
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			let mensaje = "<p>" + datos.mensaje + "</p>";
-			sweetalertError("Modificar datos de usuario",mensaje,"Entendido",null);
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de usuarios. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>" + datos.mensaje + "</p>";
+				sweetalertError("Modificar datos de usuario",mensaje,"Entendido",null);
+			}
 		} else {
 			console.log("usuario leido");
 			let nombreUsuario = document.querySelector('#nombreUsuario');
@@ -1072,8 +1090,14 @@ function operacionesTrasModificar(datos){
 	if (datos !== "" || datos !== null){
 		// Si hay error muestro el mensaje. Si no hay redirecciono al inicio para que muestre el form de login
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			let mensaje = "<p>" + datos.mensaje + "</p>";
-			sweetalertError("Modificar datos de usuario",mensaje,"Entendido",null);
+						// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de usuarios. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>" + datos.mensaje + "</p>";
+				sweetalertError("Modificar datos de usuario",mensaje,"Entendido",null);
+			}
 		} else {
 			console.log("ok");
 			sweetalertInfo("Modificar datos de usuario","mensaje","Entendido",mostrarMenuServicios);

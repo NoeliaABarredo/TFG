@@ -25,6 +25,7 @@ class ModeloOperaciones{
     // Métodos
     // Constructor
     public function __construct(){
+        $this->estado = null;
         // Instanciamos el controlador de la base de datos
         $db = new DBO();
         // Si hay error en la conexión cerramos el script devolviendo el error a front

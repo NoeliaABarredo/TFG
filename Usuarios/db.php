@@ -5,6 +5,7 @@ class DBO{
 
     function __construct(){
         $this->hostBaseDatos = getenv('DB_HOST');
+        $error = null;
     }
 
     public function conectar($dbtouse){
@@ -27,8 +28,9 @@ class DBO{
 
         } catch (\PDOException $e){
             // Control de errores de la conexión a la bbdd
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+            //throw new \PDOException($e->getMessage(), (int)$e->getCode());
             $this->error = $e->getMessage();
+            $link = null;
         }
 		return($link);
     }
@@ -36,6 +38,9 @@ class DBO{
     // Getters and setters
     function getDbName(){
         return $this->hostBaseDatos;
+    }
+    function getError(){
+        return $this->error;
     }
 }
 ?>
