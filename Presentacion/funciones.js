@@ -13,13 +13,17 @@ const MENSAJES_ERROR = [
 	"Error al añadir gasto",
 	"Fallo al conectar con el servidor SQL de cuentas",
 	"Fallo al conectar con la base de datos cuentas_db",
+	"Fallo al conectar con el servidor SQL de operaciones",
+	"Fallo al conectar con la base de datos operaciones_db",
 	"Saldo insuficiente"
 ];
 const ERROR_CONEXION_BASEDATOS = [
 	"Fallo al conectar con el servidor SQL de cuentas",
 	"Fallo al conectar con la base de datos cuentas_db",
 	"Fallo al conectar con usuarios_db",
-	"Fallo al conectar con operaciones_db"
+	"Fallo al conectar con operaciones_db",
+	"Fallo al conectar con el servidor SQL de operaciones",
+	"Fallo al conectar con la base de datos operaciones_db"
 ];
 // Variables globales
 datosUsuario = {};
@@ -1166,11 +1170,14 @@ function TrasBorrarCuenta(){
 function TrasEnviarGasto(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			// manejar este error
-			// Se volverá atrás tras restablecer el formulario 
-			//let mensaje1 = datos.mensaje;
-			let mensaje = "<p>" + datos.mensaje + "</p>";
-			sweetalertError("Añadir gasto",mensaje,"Entendido");
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>" + datos.mensaje + "</p>";
+				sweetalertError("Añadir gasto",mensaje,"Entendido");
+			}
 		} else {
 			// Se volverá atrás tras restablecer el formulario 
 			document.querySelector("#montoGastar").value = "";
@@ -1185,10 +1192,14 @@ function TrasEnviarGasto(datos){
 function TrasEnviarIngreso(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			// manejar este error
-			// Se volverá atrás tras restablecer el formulario 
-			let mensaje = "<p>Error al realizar el ingreso</p>";
-			sweetalertError("Añadir Ingreso",mensaje,"Entendido");
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>Error al realizar el ingreso</p>";
+				sweetalertError("Añadir Ingreso",mensaje,"Entendido");
+			}
 		} else {
 			// Se volverá atrás tras restablecer el formulario 
 			document.querySelector("#montoIngresar").value = "";
@@ -1203,8 +1214,14 @@ function TrasEnviarIngreso(datos){
 function LeerCuentasParaMostrarOperaciones(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			let mensaje = "<p>Error al leer la lista de cuentas</p>";
-			sweetalertError("Operaciones de tus cuentas",mensaje,"Entendido");
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>Error al leer la lista de cuentas</p>";
+				sweetalertError("Operaciones de tus cuentas",mensaje,"Entendido");
+			}
 		} else {
 			// Almacenamos la lista para tenerla a mano
 			listaCuentasGlobal = datos.listaCuentas;
@@ -1227,8 +1244,14 @@ function LeerCuentasParaMostrarOperaciones(datos){
 function trasLeerOperaciones(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			let mensaje = "<p>Error al leer operaciones</p>";
-			sweetalertError("Leer Operaciones",mensaje,"Entendido");
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>Error al leer operaciones</p>";
+				sweetalertError("Leer Operaciones",mensaje,"Entendido");
+			}
 		} else {
 			// Se compone la tabla de operaciones
 			let tablaOperaciones = document.querySelector("#servicioOperaciones ul.tabla-operaciones");
@@ -1276,8 +1299,13 @@ function trasLeerOperaciones(datos){
 function TrasEnviarTransferencia(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			let mensaje = "<p>"+ datos.mensaje + "</p>";
-			sweetalertError("Transferencia",mensaje,"Entendido");
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>"+ datos.mensaje + "</p>";
+				sweetalertError("Transferencia",mensaje,"Entendido");
+			}
 		} else {
 			document.querySelector("#opcionesDestinoTransferencia").value = "";
 			document.querySelector("#montoTransferir").value = "";
@@ -1289,17 +1317,30 @@ function TrasEnviarTransferencia(datos){
 }
 
 function TrasConsultarAhorro(datos){
-	const boton = document.querySelector("#btnAnalisisAhorro");
-	const cantidadAhorro = document.querySelector("#analisis-ahorro");
-	
-	if (datos < 0){
-		cantidadAhorro.classList.add("importe_negativo");
+if (datos !== "" || datos !== null){
+		if (MENSAJES_ERROR.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de análisis. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>"+ datos.mensaje + "</p>";
+				sweetalertError("Análisys",mensaje,"Entendido");
+			}
+		} else {
+			const boton = document.querySelector("#btnAnalisisAhorro");
+			const cantidadAhorro = document.querySelector("#analisis-ahorro");
+			
+			if (datos < 0){
+				cantidadAhorro.classList.add("importe_negativo");
+			}
+			// Quito el boón y muestro resultado
+			boton.style.display = "none";
+			cantidadAhorro.style.display = "block";	
+			cantidadAhorro.textContent = aplicarVistaEuros(datos);
+				//cantidadAhorro.innerHTML = datos;
+		}
 	}
-	// Quito el boón y muestro resultado
-	boton.style.display = "none";
-	cantidadAhorro.style.display = "block";	
-	cantidadAhorro.textContent = aplicarVistaEuros(datos);
-		//cantidadAhorro.innerHTML = datos;
+
 }
 //#endregion
 
