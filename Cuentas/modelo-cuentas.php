@@ -28,9 +28,9 @@ class ModeloCuentas{
         $db = new DBO();
         $this->dbo = $db->conectar("cuentas_db");
         // Si hay error en la conexión cerramos el script devolviendo el error a front
-        if ($this->dbo->getError() === null){
+        if ($this->db->getError() === null){
             $mensajeError = [
-                "estado"  => $this->dbo->getError(),
+                "estado"  => $this->db->getError(),
                 "mensaje" => "Fallo al conectar con cuentas_db"
             ];
             json_encode($mensajeError);
