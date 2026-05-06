@@ -27,6 +27,15 @@ class ModeloCuentas{
         // Instanciamos el controlador de la base de datos
         $db = new DBO();
         $this->dbo = $db->conectar("cuentas_db");
+        // Si hay error en la conexión cerramos el script devolviendo el error a front
+        if ($this->dbo->getError() === null){
+            $mensajeError = [
+                "estado"  => $this->dbo->getError(),
+                "mensaje" => "Fallo al conectar con cuentas_db"
+            ];
+            json_encode($mensajeError);
+            exit();
+        }
         // Inicializmos la lista vacia
         $this->listaCuentas = [];
         // Inicialmente la sesión no es valida hasta que se haga expresamente. ZeroTrust

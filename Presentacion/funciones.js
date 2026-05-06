@@ -11,7 +11,13 @@ const MENSAJES_ERROR = [
 	"Error al modificar cuenta",
 	"Error al añadir ingreso",
 	"Error al añadir gasto",
+	"Fallo al conectar con cuentas_db",
 	"Saldo insuficiente"
+];
+const ERROR_CONEXION_BASEDATOS = [
+	"Fallo al conectar con cuentas_db",
+	"Fallo al conectar con usuarios_db",
+	"Fallo al conectar con operaciones_db"
 ];
 // Variables globales
 datosUsuario = {};
@@ -1077,6 +1083,10 @@ function TrasLeerCuentas(datos){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Inyectaremos un mesaje en el div de la lista para poner que no hay elementos para mostrar
 			listaCuentas.style.display = "none";
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			}
 		} else {
 			// Almacenamos la lista tenerla a mano
 			listaCuentasGlobal = datos.listaCuentas;
@@ -1089,10 +1099,14 @@ function TrasLeerCuentas(datos){
 function TrasCrearCuenta(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			// manejar este error
-			// Se volverá atrás tras restablecer el formulario 
-			let mensaje = "<p>" + datos.mensaje + "</p>";
-			sweetalertError("Modificar cuenta",mensaje,"Entendido",null);
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>" + datos.mensaje + "</p>";
+				sweetalertError("Modificar cuenta",mensaje,"Entendido",null);
+			}
 		} else {
 			// Tenemos que restablecer el formulario de crecion 
 			document.querySelector("#nuevaCuenta").value = "";
@@ -1110,10 +1124,14 @@ function TrasCrearCuenta(datos){
 function TrasModificarCuenta(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			// manejar este error
-			// Se volverá atrás tras restablecer el formulario 
-			let mensaje = "<p>Error al modificar la cuenta</p>";
-			sweetalertError("Modificar cuenta",mensaje,"Entendido");
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>Error al modificar la cuenta</p>";
+				sweetalertError("Modificar cuenta",mensaje,"Entendido");
+			}
 		} else {
 			// Se volverá atrás tras restablecer el formulario 
 			document.querySelector("#nuevoNombreCuenta").value = "";
@@ -1127,10 +1145,14 @@ function TrasModificarCuenta(datos){
 function TrasBorrarCuenta(){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			// manejar este error
-			// Se volverá atrás tras restablecer el formulario 
-			let mensaje = "<p>Error al borrar la cuenta</p>";
-			sweetalertError("Borrar cuenta",mensaje,"Entendido");
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>Error al borrar la cuenta</p>";
+				sweetalertError("Borrar cuenta",mensaje,"Entendido");
+			}
 		} else {
 			// Se volverá atrás tras restablecer el formulario 
 			let mensaje = "<p>Cuenta eliminada con éxito</p>";

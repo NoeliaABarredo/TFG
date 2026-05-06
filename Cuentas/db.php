@@ -5,6 +5,7 @@ class DBO{
 
     function __construct(){
         $this->hostBaseDatos = getenv('DB_HOST');
+        $error = null;
     }
 
     public function conectar($dbtouse){
@@ -37,6 +38,9 @@ class DBO{
     // Getters and setters
     function getDbName(){
         return $this->hostBaseDatos;
+    }
+    function getError(){
+        return $this->error;
     }
 }
 ?>
