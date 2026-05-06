@@ -35,6 +35,7 @@ class ModeloCuentas{
             ];
             echo json_encode($mensajeError);
             $this->estado = $mensajeError;
+            exit();
         }
         // Si no hay error en conexión con el servidor, conectamos con la base de datos
         $this->dbo = $db->conectar("cuentas_db");
@@ -46,6 +47,7 @@ class ModeloCuentas{
             ];
             echo json_encode($mensajeError);
             $this->estado = $mensajeError;
+            exit();
         }
         // Inicializmos la lista vacia
         $this->listaCuentas = [];
