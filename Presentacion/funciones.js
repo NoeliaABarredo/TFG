@@ -11,11 +11,13 @@ const MENSAJES_ERROR = [
 	"Error al modificar cuenta",
 	"Error al añadir ingreso",
 	"Error al añadir gasto",
-	"Fallo al conectar con cuentas_db",
+	"Fallo al conectar con el servidor SQL de cuentas",
+	"Fallo al conectar con la base de datos cuentas_db",
 	"Saldo insuficiente"
 ];
 const ERROR_CONEXION_BASEDATOS = [
-	"Fallo al conectar con cuentas_db",
+	"Fallo al conectar con el servidor SQL de cuentas",
+	"Fallo al conectar con la base de datos cuentas_db",
 	"Fallo al conectar con usuarios_db",
 	"Fallo al conectar con operaciones_db"
 ];

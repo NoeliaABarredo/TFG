@@ -27,10 +27,11 @@ class DBO{
         try{
             $link = new PDO($dsn, $usuario, $clave, $opciones);
 
-        } catch (\PDOException $e){
+        } catch (PDOException $e){
             // Control de errores de la conexión a la bbdd
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+            //throw new \PDOException($e->getMessage(), (int)$e->getCode());
             $this->error = $e->getMessage();
+            $link = null;
         }
 		return($link);
     }
