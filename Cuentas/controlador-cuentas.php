@@ -265,10 +265,9 @@ class ControladorCuentas{
      public function getSesionValida(){
          return $this->sesionValida;
      }
-}
 
-// Getters and setters
-function getEstado(){
-    return $this->estado;
+    function getEstado(){
+        return $this->estado;
+    }
 }
 ?>
