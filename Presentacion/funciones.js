@@ -15,6 +15,8 @@ const MENSAJES_ERROR = [
 	"Fallo al conectar con la base de datos cuentas_db",
 	"Fallo al conectar con el servidor SQL de operaciones",
 	"Fallo al conectar con la base de datos operaciones_db",
+	"Fallo al conectar con el servidor SQL de usuarios",
+	"Fallo al conectar con la base de datos usuarios_db",
 	"Saldo insuficiente"
 ];
 const ERROR_CONEXION_BASEDATOS = [
@@ -23,7 +25,9 @@ const ERROR_CONEXION_BASEDATOS = [
 	"Fallo al conectar con usuarios_db",
 	"Fallo al conectar con operaciones_db",
 	"Fallo al conectar con el servidor SQL de operaciones",
-	"Fallo al conectar con la base de datos operaciones_db"
+	"Fallo al conectar con la base de datos operaciones_db",
+	"Fallo al conectar con el servidor SQL de usuarios",
+	"Fallo al conectar con la base de datos usuarios_db"
 ];
 // Variables globales
 datosUsuario = {};
