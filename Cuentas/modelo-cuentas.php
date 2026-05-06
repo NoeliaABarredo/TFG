@@ -24,6 +24,7 @@ class ModeloCuentas{
     // Métodos
     // Constructor
     public function __construct(){
+        $this->estado = null;
         // Instanciamos el controlador de la base de datos
         $db = new DBO();
         // Si hay error en la conexión cerramos el script devolviendo el error a front
@@ -33,7 +34,7 @@ class ModeloCuentas{
                 "mensaje" => "Fallo al conectar con el servidor SQL de cuentas"
             ];
             json_encode($mensajeError);
-            exit();
+            $this->estado = $mensajeError;
         }
         // Si no hay error en conexión con el servidor, conectamos con la base de datos
         $this->dbo = $db->conectar("cuentas_db");
@@ -44,7 +45,7 @@ class ModeloCuentas{
                 "mensaje" => "Fallo al conectar con la base de datos cuentas_db"
             ];
             json_encode($mensajeError);
-            exit();
+            $this->estado = $mensajeError;
         }
         // Inicializmos la lista vacia
         $this->listaCuentas = [];

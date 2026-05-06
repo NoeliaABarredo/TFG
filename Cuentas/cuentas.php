@@ -11,8 +11,11 @@ $indexpoint = 1; // posicion de la url donde está el punto.
 
 // Instanciamos el controlador para acceder a sus métodos
 $controladorCuentas = new ControladorCuentas();
+// Se comprueba error al instanciar el controlador
+if ($controladorCuentas->getEstado() !== null)
+    exit();
 
-// Comprobamos si ya existe una sesión
+// Se comprueba si ya existe una sesión
 if ($controladorCuentas->getSesionValida()){
     if ($method === "POST"){
         // Entrada
