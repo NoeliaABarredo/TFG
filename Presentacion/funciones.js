@@ -1027,9 +1027,14 @@ function accionesTrasTestToken(datos){
 	if (datos !== "" || datos !== null){
 		// Si hay error se muestra el mensaje. Si no, se redirecciona al menu que comprobará la sesión por su cuenta
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
+			// Manejo de errores
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de usuarios. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} 
 			let direccionActual = window.location.href.split('/'.toLowerCase()).slice(-1)[0];
 			if (direccionActual !== "index.html")
-				window.location = "index.html";
+					window.location = "index.html";
 		} else {
 			let direccionActual = window.location.href.split('/'.toLowerCase()).slice(-1)[0];
 			if (direccionActual !== "menuServicios.html")

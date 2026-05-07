@@ -3,6 +3,10 @@
 require_once "modelo-operaciones.php";
 
 class ControladorOperaciones{
+    const ERRORES_BBDD = [
+        "Fallo al conectar con el servidor SQL de cuentas",
+	    "Fallo al conectar con la base de datos cuentas_db"
+    ];
     // Atributos de la clase
     // Gestion del modelo para acceso a la base de datos
     private $modeloOperaciones;
@@ -152,9 +156,14 @@ class ControladorOperaciones{
                 $saldoInicial = (float) $this->formatearEuros($saldoInicial);
                 $saldoFinal = $saldoInicial + $monto;
                 $actualizarSaldoCuenta = (object) $this->modificarCuenta($saldoFinal);
-                $retornoOperacion["datosCuenta"] = $actualizarSaldoCuenta->datosCuenta;
-                $retornoOperacion["estado"] = $this->estadoOperacion;
-
+                if ($actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
+                    $retornoOperacion["datosCuenta"] = $actualizarSaldoCuenta->datosCuenta;
+                    $retornoOperacion["estado"] = $this->estadoOperacion;
+                } else {
+                    $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
+                    $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
+                    $retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                }
             } else {
                 $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();
             }
@@ -188,9 +197,14 @@ class ControladorOperaciones{
                     
                     $saldoFinal = $saldoInicial - $monto;
                     $actualizarSaldoCuenta = (object) $this->modificarCuenta($saldoFinal);
-                    $retornoOperacion["datosCuenta"] = $actualizarSaldoCuenta->datosCuenta;
-                    $retornoOperacion["estado"] = $this->estadoOperacion;
-
+                    if ($actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
+                        $retornoOperacion["datosCuenta"] = $actualizarSaldoCuenta->datosCuenta;
+                        $retornoOperacion["estado"] = $this->estadoOperacion;
+                    } else {
+                        $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
+                        $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
+                        $retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                    }
                 } else {
                     $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();
                 }
@@ -329,19 +343,22 @@ class ControladorOperaciones{
 
             // Se envía el ajuste a cuentas
             $actualizarSaldoCuenta = (object) $this->modificarCuenta($saldoFinal);
-
-            if ($selectorEtapa){
-                 // Se almacena el id de la operacion
-                $this->transferencia["idOperacionTransferir"] = $this->modeloOperaciones->getUltimoId();
-                // No hay que formatear el saldo pues viene de la bbdd de cuentas
-                $this->transferencia["saldoAnteriorDestino"] = (float) $actualizarSaldoCuenta->saldoCuentaDestino;
+            if ($actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
+                if ($selectorEtapa){
+                     // Se almacena el id de la operacion
+                    $this->transferencia["idOperacionTransferir"] = $this->modeloOperaciones->getUltimoId();
+                    // No hay que formatear el saldo pues viene de la bbdd de cuentas
+                    $this->transferencia["saldoAnteriorDestino"] = (float) $actualizarSaldoCuenta->saldoCuentaDestino;
+                } else {
+                    // Se almacena el id de la operacion
+                    $this->transferencia["idOperacionRecibir"] = $this->modeloOperaciones->getUltimoId();
+                } 
+                $valido = true;
             } else {
-                // Se almacena el id de la operacion
-                $this->transferencia["idOperacionRecibir"] = $this->modeloOperaciones->getUltimoId();
-            } 
-            //$retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
-            //var_dump($this->estadoOperacion);
-            $valido = true;
+                        $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
+                        $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
+                        $retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+            }
         } else {
             $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();
         }
@@ -394,7 +411,8 @@ class ControladorOperaciones{
             "nuevoSaldoCuenta"              => $saldoFinal,
             "idOperacion"                   => $this->modeloOperaciones->getUltimaOperacion()['id_operacion'],
             "tipoOperacion"                 => $this->modeloOperaciones->getUltimaOperacion()['tipo_operacion'],
-            "tipoCategoria"                 => $this->modeloOperaciones->getUltimaOperacion()['tipo_categoria']
+            "tipoCategoria"                 => $this->modeloOperaciones->getUltimaOperacion()['tipo_categoria'],
+            "mensaje"                       => "Solicitud desde operaciones"
         ];
         $respuesta = $this->solicitudPOST($url, $datos);
         return $respuesta;

@@ -3,6 +3,10 @@
 require_once "modelo-cuentas.php";
 
 class ControladorCuentas{
+    const ERRORES_BBDD = [
+        "Fallo al conectar con el servidor SQL de operaciones",
+	    "Fallo al conectar con la base de datos operaciones_db"
+    ];
     // Atributos de la clase
     // Gestion del modelo para acceso a la base de datos
     private $modeloCuentas;
@@ -177,7 +181,7 @@ class ControladorCuentas{
                     );
                 }                
                 // Añadimos el cambio al historial de la cuenta
-                if ($operacion !== null){
+                if ($operacion !== null && !in_array($operacion->mensaje, ControladorCuentas::ERRORES_BBDD)){
                     $indice = 0;
                     $exito = false;
                     while (!$exito && $indice < 3){
@@ -195,6 +199,7 @@ class ControladorCuentas{
                     // Revertir la modificacion
                     $this->modeloCuentas->modificarCuenta("reversion");
                     $retornoCuenta["estadoOperacion"] = $this->estadoOperacion;
+                    $retornoCuenta["estado"] = $operacion->mensaje;
                 }
                 // Leemos la cuenta destino solo si existe el parámetro y el tipo de operación es t_enviada
                 // Solo en t_enviada necesitamos el saldo de la cuenta destino y aprovechamos la modificación de
