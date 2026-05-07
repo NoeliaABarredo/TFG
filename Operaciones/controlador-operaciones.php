@@ -272,43 +272,43 @@ class ControladorOperaciones{
                         $valido = true;
                     } else {
                         // Estados tras ejecutar la segunda etapa
-                        $retornoTransfer["EstadoEtapas"] = $this->transferencia["estado"];
-                        $retornoTransfer["mensaje"] = "Error al añadir el dinero en la cuenta de destino";
+                        $retornoTransfer["EstadoEtapas"] = "Error al añadir el dinero en la cuenta de destino";
+                        $retornoTransfer["mensaje"] = $this->transferencia["estado"]["mensaje"];
                         
                         // La segunda etapa ha fracasado y debemos restablecer las dos cuentas
                         $restablecerCuenta = $this->modificarCuenta($this->transferencia["saldoAnteriorOrigen"]);
                         // Se gestionan los estados
                         $retornoTransfer["restablecimientoCuentaOrigen"] = $this->estadoOperacion;  
-                        $retornoTransfer["estado"] = "Transferencia fallida";
+                        //$retornoTransfer["estado"] = "Transferencia fallida";
 
                         // Cambio el tipo de categoria para restablecer la segunda cuenta
                         $this->transferencia["categoria"] = "t_enviada";
                         $restablecerCuenta = $this->modificarCuenta($this->transferencia["saldoAnteriorDestino"]);
                         // Se gestionan los estados
-                        $retornoTransfer["restablecimientoCuentaDestino"] = $this->estadoOperacion;  
-                        $retornoTransfer["estado"] = "Transferencia fallida";
+                        $retornoTransfer["restablecimientoCuentaDestino"] = $this->estadoOperacion;
+
+                        $retornoTransfer["estado"] = $this->transferencia["estado"];//"Transferencia fallida";
 
                         //$this->transferencia["estado"] = "fallida";
                         // Actualizamos el estado de la operacion
                         if (!$this->modeloOperaciones->actualizarEstadoOperacion("fallida"))
-                            $this->transferencia["estado"] = $this->modeloOperaciones->getEstado();
-                        // Falta desacer en las dos cuentas
+                            $this->transferencia["estadoActualizacion"] = $this->modeloOperaciones->getEstado();
                     }
                 } else {
                     // Estados tras ejecutar la primera etapa
-                    $retornoTransfer["EstadoEtapas"] = $this->transferencia["estado"]; 
-                    $retornoTransfer["mensaje"] = "Error al descontar el dinero en la cuenta de origen";
+                    $retornoTransfer["EstadoEtapas"] = "Error al descontar el dinero en la cuenta de origen";// 
+                    $retornoTransfer["mensaje"] = $this->transferencia["estado"]["mensaje"];
 
                     // La primera etapa ha fracasado y debemos restablecer la cuenta de origen. No se cursará la segunda etapa.
                     $restablecerCuenta = $this->modificarCuenta($this->transferencia["saldoAnteriorOrigen"]);
                     // Se gestionan los estados
                     $retornoTransfer["restablecimientoCuentaOrigen"] = $this->estadoOperacion;  
-                    $retornoTransfer["estado"] = "Transferencia fallida";
+                    $retornoTransfer["estado"] = $this->transferencia["estado"];//"Transferencia fallida";
 
                     //$this->transferencia["estado"] = "fallida";
                     // Actualizamos el estado de la operacion
                     if (!$this->modeloOperaciones->actualizarEstadoOperacion("fallida"))
-                        $this->transferencia["estado"] = $this->modeloOperaciones->getEstado();
+                        $this->transferencia["estadoActualizacion"] = $this->modeloOperaciones->getEstado();
                 }
             } else {
                 $retornoTransfer['mensaje'] = "Saldo insuficiente";
