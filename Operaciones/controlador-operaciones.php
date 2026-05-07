@@ -162,7 +162,7 @@ class ControladorOperaciones{
                 } else {
                     $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
                     $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
-                    $retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                    //$retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
                 }
             } else {
                 $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();

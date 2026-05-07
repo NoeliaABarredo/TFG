@@ -154,7 +154,7 @@ class ModeloCuentas{
             try{
                 switch ($tipoModificacion){
                     case 'ajuste':{
-                        $nombreCuenta = preg_replace('([^\p{L}0-9 _/\\\&-])u', '', htmlspecialchars($this->datosSolicitud->nuevoNombreCuenta));
+                        $nombreCuenta = (isset($this->datosSolicitud->nuevoNombreCuenta)) ? preg_replace('([^\p{L}0-9 _/\\\&-])u', '', htmlspecialchars($this->datosSolicitud->nuevoNombreCuenta)): null;
                         $valorNuevoSaldo = htmlspecialchars($this->datosSolicitud->nuevoSaldoCuenta);
                         if (!isset($this->datosSolicitud->modificarCuentaPorOperacion)){
                             $valorNuevoSaldo = $this->formatearEuros($valorNuevoSaldo);
