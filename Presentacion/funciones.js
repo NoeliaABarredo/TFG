@@ -1239,7 +1239,7 @@ function TrasEnviarIngreso(datos){
 			document.querySelector("#descripcionIngreso").value = "";
 			document.querySelector("#categoriaIngreso").value = "";
 			let mensaje = "<p>Ingreso añadido con éxito</p>";
-			sweetalertInfo("Añadir Ingreso",mensaje,"Entendido",mostrarMenuServicios);
+			sweetalertInfo("Añadir Ingreso",mensaje,"Entendido",manejarCuenta,datos.datosCuenta);
 		}
 	}
 }
