@@ -8,7 +8,7 @@ class ControladorOperaciones{
 	    "Fallo al conectar con la base de datos cuentas_db"
     ];
     // Atributos de la clase
-    private $trasnferencia;
+    private $transferencia;
     // Gestion del modelo para acceso a la base de datos
     private $modeloOperaciones;
     // Para el estado de la sesion
