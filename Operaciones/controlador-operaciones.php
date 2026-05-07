@@ -163,7 +163,7 @@ class ControladorOperaciones{
                 } else {
                     $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
                     $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
-                    //$retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                    $retornoOperacion["mensaje"] =  (isset($actualizarSaldoCuenta->mensaje)) ? $actualizarSaldoCuenta->mensaje : "Error al realizar el ingreso";
                 }
             } else {
                 $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();
@@ -204,7 +204,7 @@ class ControladorOperaciones{
                     } else {
                         $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
                         $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
-                        //$retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                        $retornoOperacion["mensaje"] = (isset($actualizarSaldoCuenta->mensaje)) ? $actualizarSaldoCuenta->mensaje : "Error al realizar el gasto";
                     }
                 } else {
                     $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();
@@ -263,7 +263,7 @@ class ControladorOperaciones{
                         //$this->transferencia["mensaje"] = "Transferencia realizada con exito";
 
                         // Se anota la transferencia en la tabla de transferencias
-                        
+                        $retornoTransfer["EstadoEtapas"] = "Dinero añadido a la cuenta destino con éxito";
                         $retornoTransfer["estado"] = $this->transferencia["estado"];
                         $retornoTransfer["mensaje"] = "Transferencia realizada con éxito";
                         // Marco el estado para guardar en la tabla
@@ -358,7 +358,7 @@ class ControladorOperaciones{
             } else {
                         $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
                         $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
-                        //$retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                        $retornoOperacion["mensaje"] = (isset($actualizarSaldoCuenta->mensaje)) ? $actualizarSaldoCuenta->mensaje : "Error al agregar la operacion";
             }
         } else {
             $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();

@@ -198,8 +198,10 @@ class ControladorCuentas{
                 } else {//operacion null
                     // Revertir la modificacion
                     $this->modeloCuentas->modificarCuenta("reversion");
+                    $retornoCuenta["datosCuenta"] = $this->modeloCuentas->getUltimaCuenta();
                     $retornoCuenta["estadoOperacion"] = $this->estadoOperacion;
                     $retornoCuenta["estado"] = $operacion->mensaje;
+                    $retornoCuenta["mensaje"] = $operacion->mensaje;
                 }
                 // Leemos la cuenta destino solo si existe el parámetro y el tipo de operación es t_enviada
                 // Solo en t_enviada necesitamos el saldo de la cuenta destino y aprovechamos la modificación de
