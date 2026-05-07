@@ -181,7 +181,7 @@ class ControladorCuentas{
                     );
                 }                
                 // Añadimos el cambio al historial de la cuenta
-                if ($operacion !== null && !in_array($operacion->mensaje, ControladorCuentas::ERRORES_BBDD)){
+                if (isset($operacion->mensaje) && $operacion !== null && !in_array($operacion->mensaje, ControladorCuentas::ERRORES_BBDD)){
                     $indice = 0;
                     $exito = false;
                     while (!$exito && $indice < 3){

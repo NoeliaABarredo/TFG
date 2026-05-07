@@ -197,13 +197,13 @@ class ControladorOperaciones{
                     
                     $saldoFinal = $saldoInicial - $monto;
                     $actualizarSaldoCuenta = (object) $this->modificarCuenta($saldoFinal);
-                    if ($actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
+                    if (isset($actualizarSaldoCuenta->mensaje) && $actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
                         $retornoOperacion["datosCuenta"] = $actualizarSaldoCuenta->datosCuenta;
                         $retornoOperacion["estado"] = $this->estadoOperacion;
                     } else {
                         $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
                         $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
-                        $retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                        //$retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
                     }
                 } else {
                     $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();
@@ -343,7 +343,7 @@ class ControladorOperaciones{
 
             // Se envía el ajuste a cuentas
             $actualizarSaldoCuenta = (object) $this->modificarCuenta($saldoFinal);
-            if ($actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
+            if (isset($actualizarSaldoCuenta->mensaje) && $actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
                 if ($selectorEtapa){
                      // Se almacena el id de la operacion
                     $this->transferencia["idOperacionTransferir"] = $this->modeloOperaciones->getUltimoId();
@@ -357,7 +357,7 @@ class ControladorOperaciones{
             } else {
                         $this->modeloOperaciones->actualizarEstadoOperacion("fallida");
                         $retornoOperacion["estadoOperacion"] = $this->estadoOperacion;
-                        $retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
+                        //$retornoOperacion["estado"] = $actualizarSaldoCuenta->mensaje;
             }
         } else {
             $retornoOperacion["estado"] = $this->modeloOperaciones->getEstado();
