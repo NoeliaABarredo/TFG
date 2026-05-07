@@ -156,7 +156,7 @@ class ControladorOperaciones{
                 $saldoInicial = (float) $this->formatearEuros($saldoInicial);
                 $saldoFinal = $saldoInicial + $monto;
                 $actualizarSaldoCuenta = (object) $this->modificarCuenta($saldoFinal);
-                if ($actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
+                if (isset($actualizarSaldoCuenta->mensaje) && $actualizarSaldoCuenta !== null && !in_array($actualizarSaldoCuenta->mensaje,ControladorOperaciones::ERRORES_BBDD)){
                     $retornoOperacion["datosCuenta"] = $actualizarSaldoCuenta->datosCuenta;
                     $retornoOperacion["estado"] = $this->estadoOperacion;
                 } else {
