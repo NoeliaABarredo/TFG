@@ -347,19 +347,24 @@ header h1 {
 #servicioAnalisis h2{
     margin-top: 8rem;
 }
+#analisis-supervivencia {
+    display: none;
+}
 #analisis-supervivencia .datosOrigen{
     flex-direction: row;
     display: flex;
+    gap: 0.6rem;
 }
 #analisis-supervivencia .cajas{
-    margin: 0.2rem;
-    padding: 1rem;
+    margin: 0.6rem 0 0.6rem 0;
+    padding: 1.5rem;
+    flex: 0 0 calc(50% - 0.3rem);
     border-radius: 5px;
 }
 #analisis-supervivencia .patrimonio{
     background: var(--azul); 
 }
-#analisis-supervivencia .patrimonio{
+#analisis-supervivencia .gastos{
     background: var(--verde); 
 }
 #analisis-supervivencia .resultado{
