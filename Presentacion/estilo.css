@@ -292,7 +292,7 @@ header h1 {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-#menuOperaciones .filtros{
+#menuOperaciones .filtroFecha{
     display: flex;
     flex-direction: row;
     justify-content: space-between;

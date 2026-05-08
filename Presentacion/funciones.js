@@ -990,8 +990,8 @@ function generarTablaPatrimonio(){
 	function filtrarOperaciones(){
 		let fechaInicio = document.querySelector(".filtros input[name='fecha_inicio']");
 		let fechaFin = document.querySelector(".filtros input[name='fecha_fin']");
-		//let tipo = document.querySelector(".filtros input[name='tipo']");
-		//let cuenta = document.querySelector(".filtros input[name='cuenta']");
+		let tipo = document.querySelector(".filtros select[name='tipo']");
+		let cuenta = document.querySelector(".filtros select[name='cuentas']");
 
 		let horaActualBruto = new Date();
 		const horas = String(horaActualBruto.getHours()).padStart(2, '0');
@@ -1000,11 +1000,15 @@ function generarTablaPatrimonio(){
 
 		const horaActual = `${horas}:${minutos}:${segundos}`;
 
+		let cuentas = (cuenta.value === "") ? listaCuentasGlobal : cuenta.value;
+
 		let datos = {
 			'token' : localStorage.getItem('jwt_token'),
 			"filtros": {
-				'fecha_inicio' : `${fechaInicio.value} ${horaActual}`,
-				'fecha_fin' : `${fechaFin.value} ${horaActual}`
+				'fecha_inicio'  : `${fechaInicio.value} ${horaActual}`,
+				'fecha_fin' 	: `${fechaFin.value} ${horaActual}`,
+				'tipo'			: tipo.value,
+				'cuenta'		: cuentas
 			}
 		}
 		sendData('/api/operaciones.php/leer-operaciones-filtradas',datos,'trasLeerOperaciones','POST');
