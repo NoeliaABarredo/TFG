@@ -1000,15 +1000,16 @@ function generarTablaPatrimonio(){
 
 		const horaActual = `${horas}:${minutos}:${segundos}`;
 
-		let cuentas = (cuenta.value === "") ? listaCuentasGlobal : cuenta.value;
+		let cuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
 
 		let datos = {
 			'token' : localStorage.getItem('jwt_token'),
+			'cuentas': cuentas,
 			"filtros": {
 				'fecha_inicio'  : `${fechaInicio.value} ${horaActual}`,
 				'fecha_fin' 	: `${fechaFin.value} ${horaActual}`,
 				'tipo'			: tipo.value,
-				'cuentas'		: cuentas
+				'cuentas'		: cuenta.value
 			}
 		}
 		sendData('/api/operaciones.php/leer-operaciones-filtradas',datos,'trasLeerOperaciones','POST');
@@ -1378,13 +1379,13 @@ function trasLeerOperaciones(datos){
 
 			let listaCuentas = document.querySelector(".filtros select[name='cuentas']");
 			listaCuentas.innerHTML = "";
-			let opcionCuenta = document.createElement();
+			let opcionCuenta = document.createElement('option');
 			opcionCuenta.value = "";
 			opcionCuenta.textContent = "-- Elige una cuenta --";
 			listaCuentas.appendChild(opcionCuenta);
 
 			listaCuentasGlobal.forEach((cuenta) => {
-				opcionCuenta = document.createElement();
+				opcionCuenta = document.createElement('option');
 				opcionCuenta.value = cuenta.id_cuenta;
 				opcionCuenta.textContent = cuenta.nombre_cuenta;
 				listaCuentas.appendChild(opcionCuenta);
