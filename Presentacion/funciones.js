@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					btnAnalisisAhorro.addEventListener("click", calcularCapacidadAhorro);
 
 					let btnAnalisisSupervivencia = document.querySelector("#btnAnalisisSupervivencia");
-					btnAnalisisSupervivencia.addEventListener("click", calcularSupervivencia);
+					btnAnalisisSupervivencia.addEventListener("click", calcularCapacidadSupervivencia);
 					
                 } else if (id == 'btnMostrarUsuario'){					
 					console.log("Ver datos de usuario");
