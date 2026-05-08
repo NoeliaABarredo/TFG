@@ -17,6 +17,8 @@ const MENSAJES_ERROR = [
 	"Fallo al conectar con la base de datos operaciones_db",
 	"Fallo al conectar con el servidor SQL de usuarios",
 	"Fallo al conectar con la base de datos usuarios_db",
+	"No hay operaciones",
+	"No hay cuentas",
 	"Saldo insuficiente"
 ];
 const ERROR_CONEXION_BASEDATOS = [
@@ -112,6 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					// Se añaden eventos a los botones 
 					let btnAnalisisAhorro = document.querySelector("#btnAnalisisAhorro");
 					btnAnalisisAhorro.addEventListener("click", calcularCapacidadAhorro);
+
+					let btnAnalisisSupervivencia = document.querySelector("#btnAnalisisSupervivencia");
+					btnAnalisisSupervivencia.addEventListener("click", calcularSupervivencia);
 					
                 } else if (id == 'btnMostrarUsuario'){					
 					console.log("Ver datos de usuario");
@@ -997,6 +1002,22 @@ function generarTablaPatrimonio(){
 				sweetalertInfo("Analisis",mensaje,"Entendido");
 			}	
 	}
+	function calcularCapacidadSupervivencia(){
+		
+		let listaIdsCuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
+		if (listaCuentasGlobal.length > 0){
+			let datos = {
+				'token' : localStorage.getItem('jwt_token'),
+				'cuentas' : listaIdsCuentas,
+			}
+			sendData('/api/analisis.php/supervivencia-financiera',datos,'TrasConsultarSupervivencia','POST');
+		}
+		else
+			{
+				let mensaje = "<p>No tienes ninguna cuenta creada</p>";
+				sweetalertInfo("Analisis",mensaje,"Entendido");
+			}	
+	}
 //#endregion
 
 //#region callbacks
@@ -1363,20 +1384,58 @@ if (datos !== "" || datos !== null){
 			const boton = document.querySelector("#btnAnalisisAhorro");
 			const cantidadAhorro = document.querySelector("#analisis-ahorro");
 			
-			if (datos < 0){
+			if (datos.ahorro < 0){
 				cantidadAhorro.classList.add("importe_negativo");
 			}
 			// Quito el boón y muestro resultado
 			boton.style.display = "none";
 			cantidadAhorro.style.display = "block";	
-			cantidadAhorro.textContent = aplicarVistaEuros(datos);
+			cantidadAhorro.textContent = aplicarVistaEuros(datos.ahorro);
 				//cantidadAhorro.innerHTML = datos;
 		}
 	}
 
 }
-//#endregion
+function TrasConsultarSupervivencia(datos){
+if (datos !== "" || datos !== null){
+		if (MENSAJES_ERROR.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de análisis. Por favor, inténtelo más tarde.</p>";
+				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
+			} else {
+				let mensaje = "<p>"+ datos.mensaje + "</p>";
+				sweetalertError("Análisys",mensaje,"Entendido");
+			}
+		} else {
+			let patrimonio = document.querySelector("#analisis-supervivencia .patrimonio .numero");
+			let gastos = document.querySelector("#analisis-supervivencia .gastos .numero");
+			let mesesSupervivencia = document.querySelector("#analisis-supervivencia .resultado .numero");
+			let boton = document.querySelector("#btnAnalisisSupervivencia");
+			let resultado = document.querySelector("#analisis-supervivencia");
 
+			patrimonio.textContent = aplicarVistaEuros(datos.patrimonio);
+			gastos.textContent = aplicarVistaEuros(datos.gastos);
+
+			if (datos.mesesSupervivencia < 0){
+				mesesSupervivencia.textContent = "No tienes capacidad para vivir sin ingresos.";
+				if (datos.gastos < 0)
+					gastos.classList.add("importe_negativo");
+				if (datos.patrimonio < 0)
+					patrimonio.classList.add("importe_negativo");
+
+				cantidadAhorro.classList.add("importe_negativo");
+			} else {
+				mesesSupervivencia.textContent = datos.mesesSupervivencia;
+			}
+
+			// Quito el boón y muestro resultado
+			boton.style.display = "none";
+			resultado.style.display = "block";	
+		}
+	}
+
+}
+//#endregion
 
 // Mensajes Alert mejorados
 function sweetalertInfo(title, html, buttontext, confirmCB = null, param = null){

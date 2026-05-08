@@ -19,6 +19,9 @@ if ($controladorAnalisis->getSesionValida()){
         if ($uri[$indexpoint] === "capacidad-ahorro"){
             $controladorAnalisis->capacidadAhorro(); 
         }
+        if ($uri[$indexpoint] === "supervivencia-financiera"){
+            $controladorAnalisis->supervivenciaFinanciera(); 
+        }
     }
 } else {
     // devolver 403 por falta de privilegios

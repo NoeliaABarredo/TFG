@@ -1,6 +1,12 @@
 <?php
 
 class ControladorAnalisis{
+    const ERRORES_BBDD = [
+        "Fallo al conectar con el servidor SQL de cuentas",
+	    "Fallo al conectar con la base de datos cuentas_db",
+        "Fallo al conectar con el servidor SQL de operaciones",
+	    "Fallo al conectar con la base de datos operaciones_db"
+    ];
     // Atributos de la clase
     // Para el estado de la sesion
     private $sesionValida;
@@ -85,7 +91,7 @@ class ControladorAnalisis{
         return $valido;
     }
 
-// Leer operaciones filtradas
+    // Leer operaciones filtradas
     public function capacidadAhorro(){
         $url = "http://operaciones/operaciones.php/leer-operaciones-filtradas";
         //$filtrosSolicitud = $this->datosSolicitud->filtros;        
@@ -105,6 +111,11 @@ class ControladorAnalisis{
                 "ok" => false,
                 "mensaje" => "No hay operaciones"
             ];
+        } elseif (isset($respuesta['mensaje']) && in_array($respuesta['mensaje'],ControladorAnalisis::ERRORES_BBDD)){
+            return [
+                "ok" => false,
+                "mensaje" => $actualizarSaldoCuenta->mensaje
+            ];
         }
 
         //Calcular ahorro a partir de operaciones obtenidas
@@ -119,10 +130,83 @@ class ControladorAnalisis{
             }
         }
         $ahorro = $ingresos - $gastos;
-        //var_dump($ahorro);
-        echo json_encode($ahorro);
+        $retornoAhorro = [
+            "ahorro"  => $ahorro,
+            "mensaje" => "Ahorro calculado con éxito"
+        ];
+        echo json_encode($retornoAhorro);
     }
+    public function supervivenciaFinanciera(){
+        // Se obtienen los gastos de los últimos 30 días
+        $url = "http://operaciones/operaciones.php/leer-operaciones-filtradas";
+        //$filtrosSolicitud = $this->datosSolicitud->filtros;        
+        $filtros = [
+                "fecha_inicio" => date('Y-m-d H:i:s', strtotime('-30 days')),
+                "tipo"         => "gasto"
+            ];
+        
+        $datos = [
+            "token"   => $this->jwt,
+            "filtros" => $filtros,
+            "cuentas" => $this->datosSolicitud->cuentas
+        ];
+        $respuestaOP = $this->solicitudPOST($url, $datos);
+       
+         if (!$respuestaOP || empty($respuestaOP['operaciones'])){
+            return [
+                "ok" => false,
+                "mensaje" => "No hay operaciones"
+            ];
+        } elseif (isset($respuestaOP['mensaje']) && in_array($respuestaOP['mensaje'],ControladorAnalisis::ERRORES_BBDD)){
+            return [
+                "ok" => false,
+                "mensaje" => $actualizarSaldoCuenta->mensaje
+            ];
+        }
+        
+        // Calcular gasto
+        $gastos = 0;
 
+        foreach ($respuestaOP['operaciones'] as $op){
+            $gastos += $op['monto'];
+        }
+
+        // Se obtienen las cuentas para calcular el patrimonio
+        $url = "http://cuentas/cuentas.php/leer-cuentas";
+
+        $datos = [
+            "token"   => $this->jwt
+        ];
+
+        $respuestaCuentas = $this->solicitudPOST($url, $datos);
+
+        if (!$respuestaCuentas || empty($respuestaCuentas['listaCuentas'])){
+            return [
+                "ok" => false,
+                "mensaje" => "No hay cuentas"
+            ];
+        } elseif (isset($respuestaCuentas['mensaje']) && in_array($respuestaCuentas['mensaje'],ControladorAnalisis::ERRORES_BBDD)){
+            return [
+                "ok" => false,
+                "mensaje" => $actualizarSaldoCuenta->mensaje
+            ];
+        }
+        $patrimonio = 0;
+        // Se suman los saldos de todas las cuentas
+        foreach($respuestaCuentas["listaCuenta"] as $cuenta){
+            $patrimonio += $cuenta["saldo_cuenta"];
+        }
+
+        $mesesSupervivencia = $patrimonio / $gastos;
+
+        $retornoInfo = [
+            "mesesSupervivencia" => $mesesSupervivencia,
+            "patrimonio"         => $patrimonio,
+            "gastos"             => $gastos,
+            "mensaje"            => "Ahorro calculado con éxito"
+        ];
+        echo json_encode($retornoInfo);
+    }
     // # Getters and Setters
      public function getSesionValida(){
          return $this->sesionValida;

@@ -9,6 +9,7 @@
   --gris-oscuro: #55595f;
   --negro: #000;
   --rojo: #b60c0c;
+  --verde: #85bf4b;
 }
 html {
     font-size: 62%;
@@ -346,7 +347,30 @@ header h1 {
 #servicioAnalisis h2{
     margin-top: 8rem;
 }
-
+#analisis-supervivencia .datosOrigen{
+    flex-direction: row;
+    display: flex;
+}
+#analisis-supervivencia .cajas{
+    margin: 0.2rem;
+    padding: 1rem;
+    border-radius: 5px;
+}
+#analisis-supervivencia .patrimonio{
+    background: var(--azul); 
+}
+#analisis-supervivencia .patrimonio{
+    background: var(--verde); 
+}
+#analisis-supervivencia .resultado{
+    background: var(--gris); 
+}
+#analisis-supervivencia .numero{
+    margin: auto;
+    text-align: center;
+    color: var(--azul-oscuro);
+    font-weight: bold;
+}
 #servicioCuentas,
 #servicioOperaciones,
 #servicioAnalisis,

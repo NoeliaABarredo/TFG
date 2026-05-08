@@ -125,6 +125,11 @@ class ModeloOperaciones{
                 $consulta .= " AND id_cuenta_operacion IN ($idsCuentas)";
                 $params = array_merge($params, $listaCuentas);
 
+                if (!empty($filtros['cuenta'])){
+                    $consulta .= " AND id_cuenta_operacion = ?";
+                    $params[] = $filtros['cuenta'];
+                }
+
                 if (!empty($filtros['tipo'])){
                     $consulta .= " AND tipo_operacion = ?";
                     $params[] = $filtros['tipo'];
