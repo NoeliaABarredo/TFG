@@ -193,7 +193,7 @@ class ControladorAnalisis{
         }
         $patrimonio = 0;
         // Se suman los saldos de todas las cuentas
-        foreach($respuestaCuentas["listaCuenta"] as $cuenta){
+        foreach($respuestaCuentas["listaCuentas"] as $cuenta){
             $patrimonio += $cuenta["saldo_cuenta"];
         }
 
