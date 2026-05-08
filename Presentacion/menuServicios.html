@@ -185,13 +185,16 @@
 							<span>Descripción</span>
 						</li>
 					</ul>
-					<div id="menuOperaciones" class="">
+					<div id="menuOperaciones">
 						<h2>Filtros:</h2>
 						<div class="filtros">
-							<h3>Fecha:</h3>
-							<input type="date" name="fecha_inicio">
-							<input type="date" name="fecha_fin">
-							<select name="tipo" value="">
+							<div class="filtroFecha">
+								<h3>Fecha:</h3>
+								<input type="date" name="fecha_inicio">
+								<input type="date" name="fecha_fin">
+							</div>
+							<h2>Filtros:</h2>
+							<select name="tipo" value="" class="filtroTipo">
 								<option value="">-- Elige una opcion --</option>
 								<option value="transferencia">Transferencia</option>
 								<option value="ingreso">Ingreso</option>
@@ -199,7 +202,9 @@
 								<option value="ajuste">Ajuste</option>
 							</select>
 						</div>
-						<input id="btnFiltrarOperaciones" type="button" value="Filtrar" /> 
+						<div class="butServicios">
+							<input id="btnFiltrarOperaciones" type="button" value="Filtrar" /> 
+						</div>
 						<!-- <input id="btnCancelarOperaciones" type="button" value="Cancelar" /> </div>-->
 					</div>
 										

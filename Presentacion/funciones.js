@@ -1003,8 +1003,8 @@ function generarTablaPatrimonio(){
 		let datos = {
 			'token' : localStorage.getItem('jwt_token'),
 			"filtros": {
-				'fecha_inicio' : `${fecha_inicio.value} ${horaActual}`,
-				'fecha_fin' : `${fecha_inicio.value} ${horaActual}`
+				'fecha_inicio' : `${fechaInicio.value} ${horaActual}`,
+				'fecha_fin' : `${fechaFin.value} ${horaActual}`
 			}
 		}
 		sendData('/api/operaciones.php/leer-operaciones-filtradas',datos,'trasLeerOperaciones','POST');
