@@ -292,6 +292,10 @@ header h1 {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+#menuOperaciones .filtros{
+    display: flex;
+    flex-direction: row;
+}
 .importe_positivo {
     color: green;
     font-weight: bold;
@@ -363,6 +367,9 @@ header h1 {
     padding: 1.5rem;
     flex: 0 0 calc(50% - 0.3rem);
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 #analisis-supervivencia .patrimonio{
     background: var(--azul); 
@@ -378,6 +385,7 @@ header h1 {
     text-align: center;
     color: var(--azul-oscuro);
     font-weight: bold;
+    margin: 2rem 0 0 0;
 }
 #servicioCuentas,
 #servicioOperaciones,
