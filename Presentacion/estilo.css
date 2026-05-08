@@ -295,6 +295,7 @@ header h1 {
 #menuOperaciones .filtros{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 .importe_positivo {
     color: green;
@@ -372,20 +373,20 @@ header h1 {
     justify-content: space-between;
 }
 #analisis-supervivencia .patrimonio{
-    background: var(--azul); 
-}
-#analisis-supervivencia .gastos{
     background: var(--verde); 
 }
-#analisis-supervivencia .resultado{
+#analisis-supervivencia .gastos{
     background: var(--gris); 
+}
+#analisis-supervivencia .resultado{
+    background: var(--azul); 
 }
 #analisis-supervivencia .numero{
     margin: auto;
     text-align: center;
     color: var(--azul-oscuro);
     font-weight: bold;
-    margin: 2rem 0 0 0;
+    margin: 0;
 }
 #servicioCuentas,
 #servicioOperaciones,

@@ -107,6 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					mostrarServicioOperaciones();
 					// Se recuperan las operaciones de todas las cuentas del usuario
 					solicitarOperaciones();
+
+					let btnFiltrarOperaciones = document.querySelector("#btnFiltrarOperaciones");
+					btnFiltrarOperaciones.addEventListener("click", filtrarOperaciones);
                 } else if (id === 'btnMostrarAnalisis') {
                     console.log("Mostrando análisis...");
 					mostrarServicioAnalisis();
@@ -984,7 +987,28 @@ function generarTablaPatrimonio(){
 
 		tabla.appendChild(liTotal);
 	}
+	function filtrarOperaciones(){
+		let fechaInicio = document.querySelector(".filtros input[name='fecha_inicio']");
+		let fechaFin = document.querySelector(".filtros input[name='fecha_fin']");
+		//let tipo = document.querySelector(".filtros input[name='tipo']");
+		//let cuenta = document.querySelector(".filtros input[name='cuenta']");
 
+		let horaActualBruto = new Date();
+		const horas = String(horaActualBruto.getHours()).padStart(2, '0');
+		const minutos = String(horaActualBruto.Minutes()).padStart(2, '0');
+		const segundos = String(horaActualBruto.getSeconds()).padStart(2, '0');
+
+		const horaActual = `${horas}:${minutos}:${segundos}`;
+
+		let datos = {
+			'token' : localStorage.getItem('jwt_token'),
+			"filtros": {
+				'fecha_inicio' : `${fecha_inicio.value} ${horaActual}`,
+				'fecha_fin' : `${fecha_inicio.value} ${horaActual}`
+			}
+		}
+		sendData('/api/operaciones.php/leer-operaciones-filtradas',datos,'trasLeerOperaciones','POST');
+	}
 	function calcularCapacidadAhorro(){
 		
 		let listaIdsCuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
@@ -1425,7 +1449,7 @@ if (datos !== "" || datos !== null){
 
 				cantidadAhorro.classList.add("importe_negativo");
 			} else {
-				mesesSupervivencia.textContent = Math.round(datos.mesesSupervivencia);
+				mesesSupervivencia.textContent = Math.round(datos.mesesSupervivencia).toString + " meses";
 			}
 
 			// Quito el boón y muestro resultado
