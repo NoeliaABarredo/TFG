@@ -1008,7 +1008,7 @@ function generarTablaPatrimonio(){
 				'fecha_inicio'  : `${fechaInicio.value} ${horaActual}`,
 				'fecha_fin' 	: `${fechaFin.value} ${horaActual}`,
 				'tipo'			: tipo.value,
-				'cuenta'		: cuentas
+				'cuentas'		: cuentas
 			}
 		}
 		sendData('/api/operaciones.php/leer-operaciones-filtradas',datos,'trasLeerOperaciones','POST');
@@ -1374,6 +1374,20 @@ function trasLeerOperaciones(datos){
 											<span>${operacion.descripcion_operacion}</span>`.replace(/>\s+</g, '><').trim();
 											// Añadimos este replace para que no nos añada elementos no deseados
 				tablaOperaciones.appendChild(lineaOperacion);
+			});
+
+			let listaCuentas = document.querySelector(".filtros select[name='cuentas']");
+			listaCuentas.innerHTML = "";
+			let opcionCuenta = document.createElement();
+			opcionCuenta.value = "";
+			opcionCuenta.textContent = "-- Elige una cuenta --";
+			listaCuentas.appendChild(opcionCuenta);
+
+			listaCuentasGlobal.forEach((cuenta) => {
+				opcionCuenta = document.createElement();
+				opcionCuenta.value = cuenta.id_cuenta;
+				opcionCuenta.textContent = cuenta.nombre_cuenta;
+				listaCuentas.appendChild(opcionCuenta);
 			});
 		}
 	}
