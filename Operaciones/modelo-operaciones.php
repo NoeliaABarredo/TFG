@@ -118,30 +118,39 @@ class ModeloOperaciones{
                     return $valido;    
                 }
 
-                $consulta = "SELECT * FROM operaciones WHERE 1=1";
+                //$consulta = "SELECT * FROM operaciones WHERE 1=1";
+                $consulta = "SELECT * FROM operaciones AS op
+                             INNER JOIN categorias AS ca
+                             ON ca.id_categoria = op.id_categoria_operacion 
+                             WHERE 1=1";
                 $params = [];
 
                 $idsCuentas = implode(',', array_fill(0, count($listaCuentas), '?'));
-                $consulta .= " AND id_cuenta_operacion IN ($idsCuentas)";
+                //$consulta .= " AND id_cuenta_operacion IN ($idsCuentas)";
+                $consulta .= " AND op.id_cuenta_operacion IN ($listaCuentas)";
                 $params = array_merge($params, $listaCuentas);
 
                 if (!empty($filtros['cuenta'])){
-                    $consulta .= " AND id_cuenta_operacion = ?";
+                    //$consulta .= " AND id_cuenta_operacion = ?";
+                    $consulta .= " AND op.id_cuenta_operacion = ?";
                     $params[] = $filtros['cuenta'];
                 }
 
                 if (!empty($filtros['tipo'])){
-                    $consulta .= " AND tipo_operacion = ?";
+                    //$consulta .= " AND tipo_operacion = ?";
+                    $consulta .= " AND op.tipo_operacion = ?";
                     $params[] = $filtros['tipo'];
                 }
 
                 if (!empty($filtros['fecha_inicio'])){
-                    $consulta .= " AND fecha_operacion >= ?";
+                    //$consulta .= " AND fecha_operacion >= ?";
+                    $consulta .= " AND op.fecha_operacion >= ?";
                     $params[] = $filtros['fecha_inicio'];
                 }
 
                 if (!empty($filtros['fecha_fin'])){
-                    $consulta .= " AND fecha_operacion <= ?";
+                    //$consulta .= " AND fecha_operacion <= ?";
+                    $consulta .= " AND op.fecha_operacion <= ?";
                     $params[] = $filtros['fecha_fin'];
                 }
                 $consulta .= " ORDER BY fecha_operacion DESC";
