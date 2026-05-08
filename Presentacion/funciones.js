@@ -1346,7 +1346,8 @@ function trasLeerOperaciones(datos){
 			cabecera.innerHTML = "<span>Fecha</span><span>Cuenta</span><span>Tipo</span><span>Categoría</span><span>Importe</span><span>Descripción</span>";
 			tablaOperaciones.appendChild(cabecera);
 			// Generamos las líneas y las inyectamos en el DOM
-			datos.listaOperaciones.forEach((operacion) => {
+			listaOperaciones = (isset(datos.listaOperaciones)) ? datos.listaOperaciones : datos.operaciones;
+			listaOperaciones.forEach((operacion) => {
 				let lineaOperacion = document.createElement("li");
 				let idCuenta = operacion.id_cuenta_operacion;
 
