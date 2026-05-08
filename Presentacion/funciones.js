@@ -995,7 +995,7 @@ function generarTablaPatrimonio(){
 
 		let horaActualBruto = new Date();
 		const horas = String(horaActualBruto.getHours()).padStart(2, '0');
-		const minutos = String(horaActualBruto.Minutes()).padStart(2, '0');
+		const minutos = String(horaActualBruto.getMinutes()).padStart(2, '0');
 		const segundos = String(horaActualBruto.getSeconds()).padStart(2, '0');
 
 		const horaActual = `${horas}:${minutos}:${segundos}`;
