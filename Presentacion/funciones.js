@@ -1000,8 +1000,8 @@ function generarTablaPatrimonio(){
 
 		const horaActual = `${horas}:${minutos}:${segundos}`;
 
-		let fechaHoraInicio = (fechaInicio === "") ? "" : `${fechaInicio.value} ${horaActual}`; 
-		let fechaHoraFin = (fechaFin === "") ? "" : `${fechaFin.value} ${horaActual}`; 
+		let fechaHoraInicio = (fechaInicio.value === "") ? "" : `${fechaInicio.value} ${horaActual}`; 
+		let fechaHoraFin = (fechaFin.value === "") ? "" : `${fechaFin.value} ${horaActual}`; 
 
 		let cuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
 
