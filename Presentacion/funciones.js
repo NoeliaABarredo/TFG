@@ -1000,8 +1000,7 @@ function generarTablaPatrimonio(){
 
 		const horaActual = `${horas}:${minutos}:${segundos}`;
 
-		//let cuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
-		let cuentas = listaCuentasGlobal;
+		let cuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
 
 		let datos = {
 			'token' : localStorage.getItem('jwt_token'),
