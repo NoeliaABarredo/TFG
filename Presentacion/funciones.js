@@ -1000,7 +1000,8 @@ function generarTablaPatrimonio(){
 
 		const horaActual = `${horas}:${minutos}:${segundos}`;
 
-		let cuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
+		//let cuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
+		let cuentas = listaCuentasGlobal;
 
 		let datos = {
 			'token' : localStorage.getItem('jwt_token'),
@@ -1009,7 +1010,7 @@ function generarTablaPatrimonio(){
 				'fecha_inicio'  : `${fechaInicio.value} ${horaActual}`,
 				'fecha_fin' 	: `${fechaFin.value} ${horaActual}`,
 				'tipo'			: tipo.value,
-				'cuentas'		: cuenta.value
+				'cuenta'		: cuenta.value
 			}
 		}
 		sendData('/api/operaciones.php/leer-operaciones-filtradas',datos,'trasLeerOperaciones','POST');

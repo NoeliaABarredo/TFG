@@ -127,7 +127,7 @@ class ModeloOperaciones{
 
                 $idsCuentas = implode(',', array_fill(0, count($listaCuentas), '?'));
                 //$consulta .= " AND id_cuenta_operacion IN ($idsCuentas)";
-                $consulta .= " AND op.id_cuenta_operacion IN ($listaCuentas)";
+                $consulta .= " AND op.id_cuenta_operacion IN ($idsCuentas)";
                 $params = array_merge($params, $listaCuentas);
 
                 if (!empty($filtros['cuenta'])){
@@ -153,7 +153,8 @@ class ModeloOperaciones{
                     $consulta .= " AND op.fecha_operacion <= ?";
                     $params[] = $filtros['fecha_fin'];
                 }
-                $consulta .= " ORDER BY fecha_operacion DESC";
+                //$consulta .= " ORDER BY fecha_operacion DESC";
+                $consulta .= " ORDER BY op.fecha_operacion DESC";
                 $solicitud = $this->dbo->prepare($consulta);
                 // Lanzamos la consulta
                 $solicitud->execute($params);
