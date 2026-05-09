@@ -1000,14 +1000,17 @@ function generarTablaPatrimonio(){
 
 		const horaActual = `${horas}:${minutos}:${segundos}`;
 
+		let fechaHoraInicio = (fechaInicio === "") ? "" : `${fechaInicio.value} ${horaActual}`; 
+		let fechaHoraFin = (fechaFin === "") ? "" : `${fechaFin.value} ${horaActual}`; 
+
 		let cuentas = listaCuentasGlobal.map(cuenta => cuenta.id_cuenta);
 
 		let datos = {
 			'token' : localStorage.getItem('jwt_token'),
 			'cuentas': cuentas,
 			"filtros": {
-				'fecha_inicio'  : `${fechaInicio.value} ${horaActual}`,
-				'fecha_fin' 	: `${fechaFin.value} ${horaActual}`,
+				'fecha_inicio'  : fechaHoraInicio,
+				'fecha_fin' 	: fechaHoraFin,
 				'tipo'			: tipo.value,
 				'cuenta'		: cuenta.value
 			}
