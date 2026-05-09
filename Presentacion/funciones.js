@@ -1469,7 +1469,7 @@ if (datos !== "" || datos !== null){
 
 				cantidadAhorro.classList.add("importe_negativo");
 			} else {
-				mesesSupervivencia.textContent = Math.round(datos.mesesSupervivencia).toString + " meses";
+				mesesSupervivencia.textContent = Math.round(datos.mesesSupervivencia).toString() + " meses";
 			}
 
 			// Quito el boón y muestro resultado
