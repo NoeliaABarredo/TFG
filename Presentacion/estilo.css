@@ -67,7 +67,7 @@ header h1 {
     margin: 0 auto;
     margin-top: -5rem;
     transform: translateY(5rem);
-    padding: 5rem 0 5rem 0;
+    padding: 5rem 0 5rem 0 !important;
     /*padding: 5rem;*/
 }
 .sombra {
@@ -77,10 +77,20 @@ header h1 {
     padding: 5rem;
 }
 .formulario {
-    width: 80%; 
+    width: 75%; 
     margin: auto;
     padding: 1.3rem;
     display: block;
+}
+@media screen and (max-width:840px){
+    .formulario {
+        width: 80%; 
+    }
+}
+@media screen and (max-width:578px){
+    .formulario {
+        width: 90%; 
+    }
 }
 .formulario label {
     display: block;
@@ -133,7 +143,7 @@ header h1 {
     border: 1px solid var(--rojo);
 }
 .passwordClass{
-    width: 85%;
+    width: 100%;
     /*width: 85%;*/
     display:flex;
     align-items: center;
