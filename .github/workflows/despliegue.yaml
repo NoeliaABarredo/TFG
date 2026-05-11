@@ -131,8 +131,8 @@ jobs:
             #kubectl set image deployment/analisis analisis=noeuoc/analisis:$IMAGE_TAG -n appfinanzas
             #kubectl set image deployment/presentacion presentacion=noeuoc/presentacion:$IMAGE_TAG -n appfinanzas
 
-            kubectl rollout status deployment/usuarios -n appfinanzas --timeout=120s || true
-            kubectl rollout status deployment/cuentas -n appfinanzas --timeout=120s || true
-            kubectl rollout status deployment/operaciones -n appfinanzas --timeout=120s || true
-            kubectl rollout status deployment/analisis -n appfinanzas --timeout=120s || true
-            kubectl rollout status deployment/presentacion -n appfinanzas --timeout=120s || true
+            kubectl rollout status deployment/usuarios -n appfinanzas --timeout=120s
+            kubectl rollout status deployment/cuentas -n appfinanzas --timeout=120s
+            kubectl rollout status deployment/operaciones -n appfinanzas --timeout=120s
+            kubectl rollout status deployment/analisis -n appfinanzas --timeout=120s
+            kubectl rollout status deployment/presentacion -n appfinanzas --timeout=120s
