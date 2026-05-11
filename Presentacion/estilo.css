@@ -76,20 +76,34 @@ header h1 {
     border-radius: 1.2rem;
     padding: 5rem;
 }
-.formulario {
+div.formulario {
+    width: 75%; 
+    margin: auto;
+    padding: 1.3rem;
+    display: block;
+}
+form.formulario {
     width: 75%; 
     margin: auto;
     padding: 1.3rem;
     display: block;
 }
 @media screen and (max-width:840px){
-    .formulario {
+    div.formulario {
         width: 80%; 
+    }
+    form.formulario {
+        width: 100%; 
     }
 }
 @media screen and (max-width:578px){
-    .formulario {
+    div.formulario {
         width: 90%; 
+    }
+}
+@media screen and (max-width:430px){
+    div.formulario {
+        width: 100%; 
     }
 }
 .formulario label {
@@ -229,6 +243,15 @@ header h1 {
 .lista li:hover::marker {
     color: var(--azul);
     cursor: pointer;
+}
+#seleccionarServicio{
+    width: 75%;
+    margin: 0 auto auto auto;
+}
+@media screen and (max-width:578px){
+    #seleccionarServicio{
+        width: 100%;
+    }
 }
 .butServicios {
     width: 100%;
