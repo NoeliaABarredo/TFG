@@ -324,11 +324,6 @@ form.formulario {
     color: var(--blanco);
     font-weight: bold;
 }
-.tabla-operaciones li span.label {
-    display: none;
-    color: var(--azul-medio);
-    font-weight: bold;
-}
 .tabla-operaciones li:nth-child(even):not(.cabecera) {
     background-color: var(--gris-claro);
 }
@@ -338,7 +333,12 @@ form.formulario {
 .tabla-operaciones li:not(.cabecera):hover {
     background-color: var(--azul-claro);
 }
-.tabla-operaciones li span {
+.tabla-operaciones li span.label {
+    display: none;
+    color: var(--azul-medio);
+    font-weight: bold;
+}
+.tabla-operaciones li span:not(.valor) {
     padding: 0.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -361,7 +361,7 @@ form.formulario {
         align-items: center;
     }
     .tabla-operaciones li span.label {
-        display: inline;
+        display: block;
         color: var(--azul-medio);
         font-weight: bold;
     }

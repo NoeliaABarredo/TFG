@@ -330,6 +330,7 @@ function ocultarMisCuentas(){
 
 	let servicioCuentas = document.getElementById("servicioCuentas");
 	let seleccionarServicio = document.getElementById("seleccionarServicio");
+	console.log(servicioCuentas);
 	if (servicioCuentas) servicioCuentas.style.display = "none";
 	if (seleccionarServicio) seleccionarServicio.style.display = "none";
 }
@@ -1371,12 +1372,12 @@ function trasLeerOperaciones(datos){
 					default: importe = operacion.monto;break;
 				}
 				// Generamos la tabla
-				lineaOperacion.innerHTML = `<span><span class="label">Fecha: </span>${operacion.fecha_operacion.split(' ')[0]}</span>
-											<span><span class="label">Cuenta: </span>${nombreCuenta}</span>
-											<span><span class="label">Tipo: </span>${operacion.tipo_operacion}</span>
-											<span><span class="label">Categoría: </span>${operacion.tipo_categoria}</span>
-											<span class="${claseImporte}"><span class="label">Importe: </span>${importe}</span>
-											<span><span class="label">Descripción: </span>${operacion.descripcion_operacion}</span>`.replace(/>\s+</g, '><').trim();
+				lineaOperacion.innerHTML = `<span class="label">Fecha: </span><span class="valor">${operacion.fecha_operacion.split(' ')[0]}</span>
+											<span class="label">Cuenta: </span><span class="valor">${nombreCuenta}</span>
+											<span class="label">Tipo: </span><span class="valor">${operacion.tipo_operacion}</span>
+											<span class="label">Categoría: </span><span class="valor">${operacion.tipo_categoria}</span>
+											<span class="label">Importe: </span><span class="${claseImporte} valor">${importe}</span>
+											<span class="label">Descripción: </span><span class="valor">${operacion.descripcion_operacion}</span>`.replace(/>\s+</g, '><').trim();
 											// Añadimos este replace para que no nos añada elementos no deseados
 				tablaOperaciones.appendChild(lineaOperacion);
 			});
