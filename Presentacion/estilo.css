@@ -339,13 +339,15 @@ form.formulario {
     font-weight: bold;
 }
 .tabla-operaciones li span {
+    display: flex;
+    padding: 0.2rem;
+}
+.tabla-operaciones li span.valor {
+    display: block;
     padding: 0.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-.tabla-operaciones li span.valor {
-    padding: 0.2rem;
 }
 @media screen and (max-width:700px){
     .tabla-operaciones {
@@ -370,6 +372,9 @@ form.formulario {
     }
     .tabla-operaciones li span {
         display: flex;
+    }
+    .tabla-operaciones li span.valor {
+        display: block;
         padding: 0.2rem;
         overflow: hidden;
         text-overflow: ellipsis;
