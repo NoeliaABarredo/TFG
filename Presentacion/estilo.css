@@ -366,19 +366,21 @@ form.formulario {
         align-items: center;
     }
     .tabla-operaciones li span.label {
-        display: block;
+        display: inline;
         color: var(--azul-medio);
         font-weight: bold;
+        width: auto;
     }
     .tabla-operaciones li span {
         display: flex;
     }
     .tabla-operaciones li span.valor {
-        display: block;
+        display: inline;
         padding: 0.2rem;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        width: auto;
     }
 }
 #menuOperaciones .filtroFecha{

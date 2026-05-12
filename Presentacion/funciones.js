@@ -1376,7 +1376,7 @@ function trasLeerOperaciones(datos){
 											<span><span class="label">Cuenta: </span><span class="valor">${nombreCuenta}</span></span>
 											<span><span class="label">Tipo: </span><span class="valor">${operacion.tipo_operacion}</span></span>
 											<span><span class="label">Categoría: </span><span class="valor">${operacion.tipo_categoria}</span></span>
-											<span><span class="label">Importe: </span><span class="${claseImporte} valor">${importe}</span></span>
+											<span><span class="label">Importe: </span><span class="${claseImporte} valor">${aplicarVistaEuros(importe)}</span></span>
 											<span><span class="label">Descripción: </span><span class="valor">${operacion.descripcion_operacion}</span></span>`.replace(/>\s+</g, '><').trim();
 											// Añadimos este replace para que no nos añada elementos no deseados
 				tablaOperaciones.appendChild(lineaOperacion);
