@@ -372,6 +372,7 @@ form.formulario {
         width: auto;
     }
     .tabla-operaciones li span {
+        width: 100%;
         display: flex;
         justify-content: space-between;
     }
