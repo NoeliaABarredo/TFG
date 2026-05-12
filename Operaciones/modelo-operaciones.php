@@ -154,7 +154,7 @@ class ModeloOperaciones{
                     $params[] = $filtros['fecha_fin'];
                 }
                 //$consulta .= " ORDER BY fecha_operacion DESC";
-                $consulta .= " ORDER BY op.fecha_operacion DESC";
+                $consulta .= " ORDER BY op.fecha_operacion DESC LIMIT 30";
                 $solicitud = $this->dbo->prepare($consulta);
                 // Lanzamos la consulta
                 $solicitud->execute($params);
