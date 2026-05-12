@@ -260,7 +260,7 @@ form.formulario {
 @media screen and (max-width:578px){
     #seleccionarServicio{
         width: 100%;
-        padding: 0 1.3rem;
+        /*padding: 0 1.3rem;*/
     }
 }
 .butServicios {
@@ -478,4 +478,14 @@ form.formulario {
 {
     margin: 1.2rem;
     display: none;
+}
+@media screen and (max-width:578px){
+    #servicioCuentas,
+    #servicioOperaciones,
+    #servicioAnalisis,
+    #apartadoModificarDatosUsuario,
+    #menuBotonAtrasDesdeCualquierServicio
+    {
+        margin: auto;
+    }
 }
