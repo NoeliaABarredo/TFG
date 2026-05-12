@@ -242,26 +242,23 @@ class ControladorOperaciones{
             $this->transferencia["estado"] = "pendiente";
             
             if ($this->transferencia["saldoAnteriorOrigen"] > $this->transferencia["monto"]){
-                // Se lanza la primera etapa y se aprovecha el ajuste de la primera cuenta para leer el saldo de la segunda
+                // Se lanza la primera etapa y se aprovecha para leer el saldo de la segunda
                 if ($this->etapaTransferencia($this->transferencia["categoria"], $this->transferencia)){
                     // Se actualiza el estado de la operacion
-                    if (!$this->modeloOperaciones->actualizarEstadoOperacion("completada")){}
+                    if (!$this->modeloOperaciones->actualizarEstadoOperacion("completada")){
                         $this->transferencia["estado"] = $this->modeloOperaciones->getEstado();
-                    
+                    }
                     $retornoTransfer["EstadoEtapas"] = "Dinero descontado de la cuenta origen con éxito";
                     $retornoTransfer["mensaje"] = "Pendiente";
                     $retornoTransfer["estado"] = $this->transferencia["estado"];
-                    //$this->transferencia["mensaje"] = "Transferencia realizada con exito";
                     $this->transferencia["categoria"] = "t_recibida";
 
                     // Todo ha ido bien en la primera etapa descontando el saldo de la cuenta origen y ejecutamos la segunda
                     if ($this->etapaTransferencia($this->transferencia["categoria"], $this->transferencia)){
                         // Todo ha ido bien en la segunda etapa añadiendo el saldo de la cuenta destino, validamos la transferencia
-                        if (!$this->modeloOperaciones->actualizarEstadoOperacion("completada"))
+                        if (!$this->modeloOperaciones->actualizarEstadoOperacion("completada")){
                             $this->transferencia["estado"] = $this->modeloOperaciones->getEstado();
-
-                        //$this->transferencia["mensaje"] = "Transferencia realizada con exito";
-
+                        }
                         // Se anota la transferencia en la tabla de transferencias
                         $retornoTransfer["EstadoEtapas"] = "Dinero añadido a la cuenta destino con éxito";
                         $retornoTransfer["estado"] = $this->transferencia["estado"];
@@ -323,15 +320,15 @@ class ControladorOperaciones{
             "mensaje"       => "Error al agregar la operacion"
         ];
         // Marcamos el tipo de etapa para la selcción de mensajes y datos
-        // Si es true etamos en primera etapa monto sale de la cuenta origen.
-        // En segunda etapa el monto entra en la cuenta destino
+        // Si es true estamos en primera etapa: monto sale de la cuenta origen.
+        // Sino estamos en segunda etapa: el monto entra en la cuenta destino
         $selectorEtapa = ($etapa === "t_enviada") ? true : false;
 
         $concepto = preg_replace('([^\p{L}0-9 _/\\\&-])u', '', htmlspecialchars($this->modeloOperaciones->getDatosSolicitud()->descripcionTransferir));
         // Se elige el origen del saldo en funcion de la etapa
         $saldoAnterior = ($selectorEtapa) ? $cuentaEtapa["saldoAnteriorOrigen"] : $cuentaEtapa["saldoAnteriorDestino"];
         $monto = $cuentaEtapa["monto"];
-        // En primera etapa resto del origen. En segunda sumo al destino
+        // En primera etapa se resta del saldo origen. En segunda etapa se suma al saldo destino
         $saldoFinal = ($selectorEtapa) ? $saldoAnterior - $monto : $saldoAnterior + $monto;
 
         // Ejecutamos la modificacion tras ajustar los datos de la operación

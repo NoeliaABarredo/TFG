@@ -67,7 +67,8 @@ header h1 {
     text-align: center;
 }
 .contenedor { 
-    width: 90%;
+    width: 100%;
+    /*width: 90%;*/
     max-width: 80rem;
     margin: 0 auto;
     margin-top: -5rem;
@@ -109,7 +110,8 @@ form.formulario {
 }
 @media screen and (max-width:430px){
     div.formulario {
-        width: 100%; 
+        width: 100%;
+        padding: 0; 
     }
 }
 .formulario label {
@@ -320,6 +322,11 @@ form.formulario {
     color: var(--blanco);
     font-weight: bold;
 }
+.tabla-operaciones li span.label {
+    display: none;
+    color: var(--azul-medio);
+    font-weight: bold;
+}
 .tabla-operaciones li:nth-child(even):not(.cabecera) {
     background-color: var(--gris-claro);
 }
@@ -346,13 +353,26 @@ form.formulario {
     }
     .tabla-operaciones li {
         display: flex;
+        flex-wrap: wrap;
         padding: 1rem;
         align-items: center;
+    }
+    .tabla-operaciones li span.label {
+        display: none;
+        color: var(--azul-medio);
+        font-weight: bold;
+    }
+    .tabla-operaciones li span {
+        padding: 0.2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 #menuOperaciones .filtroFecha{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 2rem;
 }
