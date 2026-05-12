@@ -338,11 +338,14 @@ form.formulario {
     color: var(--azul-medio);
     font-weight: bold;
 }
-.tabla-operaciones li span:not(.valor) {
+.tabla-operaciones li span {
     padding: 0.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.tabla-operaciones li span.valor {
+    padding: 0.2rem;
 }
 @media screen and (max-width:700px){
     .tabla-operaciones {
@@ -495,6 +498,6 @@ form.formulario {
     #apartadoModificarDatosUsuario,
     #menuBotonAtrasDesdeCualquierServicio
     {
-        margin: auto;
+        margin: 1.2rem auto auto auto;
     }
 }
