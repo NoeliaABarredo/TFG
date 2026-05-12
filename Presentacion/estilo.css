@@ -76,6 +76,7 @@ header h1 {
     padding: 5rem 0 5rem 0 !important;
     /*padding: 5rem;*/
 }
+@media screen and (max-width:578px){}
 .sombra {
     box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
     background-color: var(--blanco);
@@ -100,7 +101,7 @@ form.formulario {
     }
     form.formulario {
         width: 100%;
-        padding: 0; 
+        padding: 0;
     }
 }
 @media screen and (max-width:578px){
@@ -111,7 +112,7 @@ form.formulario {
 @media screen and (max-width:430px){
     div.formulario {
         width: 100%;
-        padding: 0; 
+        /*padding: 0;*/ 
     }
 }
 .formulario label {
@@ -259,6 +260,7 @@ form.formulario {
 @media screen and (max-width:578px){
     #seleccionarServicio{
         width: 100%;
+        padding: 0 1.3rem;
     }
 }
 .butServicios {
@@ -353,12 +355,13 @@ form.formulario {
     }
     .tabla-operaciones li {
         display: flex;
-        flex-wrap: wrap;
+        /*flex-wrap: wrap;*/
+        flex-direction: column;
         padding: 1rem;
         align-items: center;
     }
     .tabla-operaciones li span.label {
-        display: none;
+        display: block;
         color: var(--azul-medio);
         font-weight: bold;
     }

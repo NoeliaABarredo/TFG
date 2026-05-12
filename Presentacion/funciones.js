@@ -1371,12 +1371,12 @@ function trasLeerOperaciones(datos){
 					default: importe = operacion.monto;break;
 				}
 				// Generamos la tabla
-				lineaOperacion.innerHTML = `<span class="label">Fecha: </span><span>${operacion.fecha_operacion.split(' ')[0]}</span>
-											<span class="label">Cuenta: </span><span>${nombreCuenta}</span>
-											<span class="label">Tipo: </span><span>${operacion.tipo_operacion}</span>
-											<span class="label">Categoría: </span><span>${operacion.tipo_categoria}</span>
-											<span class="label">Importe: </span><span class="${claseImporte}">${importe}</span>
-											<span class="label">Descripción: </span><span>${operacion.descripcion_operacion}</span>`.replace(/>\s+</g, '><').trim();
+				lineaOperacion.innerHTML = `<span><span class="label">Fecha: </span>${operacion.fecha_operacion.split(' ')[0]}</span>
+											<span><span class="label">Cuenta: </span>${nombreCuenta}</span>
+											<span><span class="label">Tipo: </span>${operacion.tipo_operacion}</span>
+											<span><span class="label">Categoría: </span>${operacion.tipo_categoria}</span>
+											<span <span class="label">Importe: </span>class="${claseImporte}">${importe}</span>
+											<span><span class="label">Descripción: </span>${operacion.descripcion_operacion}</span>`.replace(/>\s+</g, '><').trim();
 											// Añadimos este replace para que no nos añada elementos no deseados
 				tablaOperaciones.appendChild(lineaOperacion);
 			});
