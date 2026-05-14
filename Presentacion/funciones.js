@@ -17,6 +17,7 @@ const MENSAJES_ERROR = [
 	"Fallo al conectar con la base de datos operaciones_db",
 	"Fallo al conectar con el servidor SQL de usuarios",
 	"Fallo al conectar con la base de datos usuarios_db",
+	"Fallo al conectar con el servicio de operaciones",
 	"No hay operaciones",
 	"No hay cuentas",
 	"Saldo insuficiente"

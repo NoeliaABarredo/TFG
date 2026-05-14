@@ -202,8 +202,8 @@ class ControladorCuentas{
                     $this->modeloCuentas->modificarCuenta("reversion");
                     $retornoCuenta["datosCuenta"] = $this->modeloCuentas->getUltimaCuenta();
                     $retornoCuenta["estadoOperacion"] = $this->estadoOperacion;
-                    $retornoCuenta["estado"] = $operacion->mensaje;
-                    $retornoCuenta["mensaje"] = $operacion->mensaje;
+                    $retornoCuenta["estado"] = (isset($operacion->mensaje)) ? $operacion->mensaje : "Fallo al conectar con el servicio de operaciones";
+                    $retornoCuenta["mensaje"] = (isset($operacion->mensaje)) ? $operacion->mensaje : "Fallo al conectar con el servicio de operaciones";
                 }
                 // Leemos la cuenta destino solo si existe el parámetro y el tipo de operación es t_enviada
                 // Solo en t_enviada necesitamos el saldo de la cuenta destino y aprovechamos la modificación de
