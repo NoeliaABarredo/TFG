@@ -663,8 +663,13 @@ function sendData(act,data,fn,met){
 			if (!response.ok){
 				if (response.status === 403){
 					window.location = "./index.html";
+				} else if (response.status === 503){
+					console.log(response);
+					window.location = "./index.html";
+					let mensaje = "<p>En estos momentos el servicio de autenticación no está disponible</p>";
+					sweetalertError("Autenticación",mensaje,"Entendido");
 				}
-				console.log("error");
+				console.log("Hubo algún problema con el servidor");
 			}
 			return response.text();
 		})
