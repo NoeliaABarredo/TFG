@@ -37,6 +37,7 @@ if ($controladorOperaciones->getSesionValida()){
     // devolver 403 por falta de privilegios
     http_response_code(403);
     $mensajeRetorno = [
+        "estado"  => $controladorOperaciones->getEstado(),
         "mensaje" => "No tienes permiso para acceder a este recurso"
     ];
     echo json_encode($mensajeRetorno);

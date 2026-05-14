@@ -29,7 +29,8 @@ const ERROR_CONEXION_BASEDATOS = [
 	"Fallo al conectar con el servidor SQL de operaciones",
 	"Fallo al conectar con la base de datos operaciones_db",
 	"Fallo al conectar con el servidor SQL de usuarios",
-	"Fallo al conectar con la base de datos usuarios_db"
+	"Fallo al conectar con la base de datos usuarios_db",
+	"El servicio de usuarios no está disponible"
 ];
 // Variables globales
 datosUsuario = {};
@@ -1153,7 +1154,7 @@ function operacionesTrasModificar(datos){
 		// Si hay error muestro el mensaje. Si no hay redirecciono al inicio para que muestre el form de login
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 						// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de usuarios. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1175,7 +1176,7 @@ function TrasLeerCuentas(datos){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Inyectaremos un mesaje en el div de la lista para poner que no hay elementos para mostrar
 			listaCuentas.style.display = "none";
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			}
@@ -1192,7 +1193,7 @@ function TrasCrearCuenta(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1217,7 +1218,7 @@ function TrasModificarCuenta(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1238,7 +1239,7 @@ function TrasBorrarCuenta(){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1257,7 +1258,7 @@ function TrasEnviarGasto(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1279,7 +1280,7 @@ function TrasEnviarIngreso(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1301,7 +1302,7 @@ function LeerCuentasParaMostrarOperaciones(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1331,7 +1332,7 @@ function trasLeerOperaciones(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
 			// Manejo de errores
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1400,7 +1401,7 @@ function trasLeerOperaciones(datos){
 function TrasEnviarTransferencia(datos){
 	if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de operaciones. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1420,7 +1421,7 @@ function TrasEnviarTransferencia(datos){
 function TrasConsultarAhorro(datos){
 if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de análisis. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
@@ -1446,7 +1447,7 @@ if (datos !== "" || datos !== null){
 function TrasConsultarSupervivencia(datos){
 if (datos !== "" || datos !== null){
 		if (MENSAJES_ERROR.includes(datos.mensaje)){
-			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje)){
+			if (ERROR_CONEXION_BASEDATOS.includes(datos.mensaje) || ERROR_CONEXION_BASEDATOS.includes(datos.estado)){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de análisis. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {

@@ -83,11 +83,15 @@ class ControladorAnalisis{
         $respuesta = $this->solicitudPOST($url, $datos);
 
         //$valido = ($respuesta["mensaje"] === "Sesion valida") ? true : false;
-        if ($respuesta["mensaje"] === "Sesion valida") {
+        if (isset($respuesta["mensaje"]) && $respuesta["mensaje"] === "Sesion valida") {
             $valido = true;
             $this->id_usuario = $respuesta["id_usuario"];
-        } else 
+        } else {
             $valido = false;
+            if (!isset($respuesta["mensaje"])){
+                $this->estado = "El servicio de usuarios no está disponible";
+            }
+        }
         return $valido;
     }
 
@@ -213,6 +217,9 @@ class ControladorAnalisis{
      }
      public function getEstadoComunicacion(){
         return $this->estadoComunicacion;
+     }
+     public function getEstado(){
+        return $this->estado;
      }
 }
 ?>

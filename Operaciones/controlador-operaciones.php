@@ -84,11 +84,15 @@ class ControladorOperaciones{
         $respuesta = $this->solicitudPOST($url, $datos);
 
         //$valido = ($respuesta["mensaje"] === "Sesion valida") ? true : false;
-        if ($respuesta["mensaje"] === "Sesion valida") {
+        if (isset($respuesta["mensaje"]) && $respuesta["mensaje"] === "Sesion valida") {
             $valido = true;
             $this->modeloOperaciones->setUserId($respuesta["id_usuario"]);
-        } else 
+        } else {
             $valido = false;
+            if (!isset($respuesta["mensaje"])){
+                $this->estado = "El servicio de usuarios no está disponible";
+            }
+        }
         return $valido;
     }
     // Leer operaciones
@@ -430,6 +434,9 @@ class ControladorOperaciones{
     # Getters and Setters
     public function getSesionValida(){
         return $this->sesionValida;
+    }
+    public function getEstado(){
+        return $this->estado;
     }
 }
 ?>

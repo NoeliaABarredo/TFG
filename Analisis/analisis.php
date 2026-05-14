@@ -27,7 +27,8 @@ if ($controladorAnalisis->getSesionValida()){
     // devolver 403 por falta de privilegios
     http_response_code(403);
     $mensajeRetorno = [
-        "estado"  => $controladorAnalisis->getEstadoComunicacion(),
+        "estadoComunicacion"  => $controladorAnalisis->getEstadoComunicacion(),
+        "estado"  => $controladorAnalisis->getEstado(),
         "mensaje" => "No tienes permiso para acceder a este recurso"
     ];
     echo json_encode($mensajeRetorno);
