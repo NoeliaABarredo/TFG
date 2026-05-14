@@ -664,10 +664,9 @@ function sendData(act,data,fn,met){
 				if (response.status === 403){
 					window.location = "./index.html";
 				} else if (response.status === 503){
-					console.log(response);
-					window.location = "./index.html";
-					let mensaje = "<p>En estos momentos el servicio de autenticación no está disponible</p>";
-					sweetalertError("Autenticación",mensaje,"Entendido");
+					let servicio = response.url.split('/api/')[1].split('/')[0].split('.')[0];
+					let mensaje = "<p>En estos momentos el servicio de " + servicio + " no está disponible</p>";
+					sweetalertError("Autenticación",mensaje,"Entendido",mostrarMenuServicios);
 				}
 				console.log("Hubo algún problema con el servidor");
 			}
