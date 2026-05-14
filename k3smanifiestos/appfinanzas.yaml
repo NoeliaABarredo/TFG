@@ -162,7 +162,7 @@ spec:
         - containerPort: 3306
         volumeMounts:
         - name: usuarios-db-storage
-          mountPath: /var/lib/mysql   
+          mountPath: /var/lib/mysql
         resources:
           requests:
             cpu: "100m"
@@ -272,6 +272,28 @@ spec:
   type: ClusterIP
 
 ---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cuentas-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cuentas
+
+  minReplicas: 2
+  maxReplicas: 3
+
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+
+---
 #cuentas-db deployment 
 apiVersion: apps/v1
 kind: Deployment
@@ -309,7 +331,7 @@ spec:
         - containerPort: 3306
         volumeMounts:
         - name: cuentas-db-storage
-          mountPath: /var/lib/mysql    
+          mountPath: /var/lib/mysql
         resources:
           requests:
             cpu: "100m"
@@ -321,7 +343,7 @@ spec:
           exec:
             command: ["mariadb-admin", "ping", "-h", "localhost"]
           initialDelaySeconds: 30
-          periodSeconds: 10    
+          periodSeconds: 10
       volumes:
       - name: cuentas-db-storage
         persistentVolumeClaim:
@@ -416,6 +438,28 @@ spec:
     - port: 80
       targetPort: 80
   type: ClusterIP
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: operaciones-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: operaciones
+
+  minReplicas: 2
+  maxReplicas: 3
+
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
 
 ---
 #operaciones-db deployment
@@ -646,7 +690,8 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: appfinanzas-strip-api@kubernetescrd
 spec:
   rules:
-  - http:
+  - host: appfinanzas.local
+    http:
       paths:
       # FRONTEND
       - path: /

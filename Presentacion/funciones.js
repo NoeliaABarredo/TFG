@@ -330,7 +330,6 @@ function ocultarMisCuentas(){
 
 	let servicioCuentas = document.getElementById("servicioCuentas");
 	let seleccionarServicio = document.getElementById("seleccionarServicio");
-	console.log(servicioCuentas);
 	if (servicioCuentas) servicioCuentas.style.display = "none";
 	if (seleccionarServicio) seleccionarServicio.style.display = "none";
 }
