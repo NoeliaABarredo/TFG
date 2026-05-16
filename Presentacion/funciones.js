@@ -664,7 +664,7 @@ function sendData(act,data,fn,met){
 			if (!response.ok){
 				if (response.status === 403){
 					window.location = "./index.html";
-				} else if (response.status === 503){
+				} else if (response.status === 503 || response.status === 404){
 					let servicio = response.url.split('/api/')[1].split('/')[0].split('.')[0];
 					let mensaje = "<p>En estos momentos el servicio de " + servicio + " no está disponible</p>";
 					sweetalertError("Autenticación",mensaje,"Entendido",mostrarMenuServicios);
@@ -1227,7 +1227,7 @@ function TrasModificarCuenta(datos){
 				let mensaje = "<p>En estos momentos no podemos acceder a sus datos de cuentas. Por favor, inténtelo más tarde.</p>";
 				sweetalertError("Problema de conexión",mensaje,"Entendido",null);
 			} else {
-				let mensaje = "<p>Error al modificar la cuenta</p>";
+				let mensaje = "<p>" + datos.mensaje + "</p>";
 				sweetalertError("Modificar cuenta",mensaje,"Entendido");
 			}
 		} else {
